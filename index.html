@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d0f14">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Menu">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icon.svg">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <title>Menu</title>
+  <style>
+    :root { color-scheme: dark; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; background:#0d0f14; color:#f7f7fb; }
+    * { box-sizing:border-box; } body { margin:0; min-height:100vh; background:radial-gradient(circle at 50% -18%,#2e3550 0,#151923 38%,#0d0f14 70%); }
+    main { width:min(760px,100%); margin:0 auto; padding:calc(28px + env(safe-area-inset-top)) 20px calc(42px + env(safe-area-inset-bottom)); }
+    header { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:24px; } h1 { margin:0; font-size:34px; letter-spacing:-1.2px; } p { margin:7px 0 0; color:#aeb5c4; line-height:1.45; font-size:15px; }
+    button { appearance:none; border:0; border-radius:14px; padding:11px 13px; background:#252b3a; color:#fff; font:600 14px inherit; white-space:nowrap; } button:active { transform:scale(.97); background:#343c50; }
+    #status { margin:0 0 16px; min-height:21px; font-size:13px; color:#aeb5c4; }
+    #apps { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .app { display:flex; align-items:center; gap:13px; min-height:86px; padding:13px; border-radius:20px; text-decoration:none; color:inherit; background:rgba(35,40,53,.78); border:1px solid rgba(255,255,255,.07); box-shadow:0 8px 28px rgba(0,0,0,.12); }
+    .app:active { transform:scale(.98); background:#30384a; } .icon { width:54px; height:54px; flex:0 0 54px; object-fit:cover; border-radius:14px; background:#252b3a; } .fallback { display:grid; place-items:center; font-weight:800; font-size:22px; color:white; background:var(--color,#596277); }
+    .name { font-size:15px; font-weight:700; line-height:1.17; overflow-wrap:anywhere; } .repo { margin-top:5px; color:#9ba4b6; font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .empty { grid-column:1/-1; padding:22px; border-radius:18px; color:#aeb5c4; background:#1b202b; line-height:1.45; } footer { margin-top:24px; font-size:12px; color:#80899b; text-align:center; }
+    @media (min-width:620px) { #apps { grid-template-columns:repeat(3,minmax(0,1fr)); } .app { flex-direction:column; align-items:flex-start; min-height:145px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header><div><h1>Menu</h1><p>Seus apps publicados no GitHub</p></div><button id="refresh" type="button">Atualizar</button></header>
+    <div id="status" role="status">Procurando seus PWAs…</div>
+    <section id="apps" aria-label="Aplicativos"></section>
+    <footer>Atualiza automaticamente ao abrir.</footer>
+  </main>
+  <script>
+    const USER = "viniciusnevesdev", appsEl = document.querySelector("#apps"), statusEl = document.querySelector("#status");
+    const api = (path) => fetch("https://api.github.com" + path, {cache:"no-store"}).then(async r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+    const pagesBase = repo => "https://" + USER + ".github.io/" + encodeURIComponent(repo) + "/";
+    const escaped = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+    function manifestBase(repo, path) { return pagesBase(repo) + path.split("/").slice(0,-1).map(encodeURIComponent).join("/") + (path.includes("/") ? "/" : ""); }
+    function validManifest(m) { return ["standalone","minimal-ui","fullscreen"].includes(m.display) && (m.name || m.short_name); }
+    async function findIcon(base, manifest) {
+      const icons = Array.isArray(manifest.icons) ? manifest.icons : [];
+      const icon = icons.find(i => /512/.test(i.sizes || "")) || icons[0];
+      if (icon && icon.src) return new URL(icon.src, base).href;
+      try {
+        const html = await (await fetch(base, {cache:"no-store"})).text();
+        const tag = html.match(/<link[^>]+rel=["'][^"']*(?:apple-touch-icon|icon)[^"']*["'][^>]*>/i)?.[0];
+        const href = tag?.match(/href=["']([^"']+)["']/i)?.[1];
+        return href ? new URL(href, base).href : "";
+      } catch { return ""; }
+    }
+    async function discover() {
+      const repos = await api("/users/" + USER + "/repos?per_page=100&sort=updated");
+      const published = repos.filter(r => r.has_pages && !r.archived && r.name !== "Menu");
+      const found = await Promise.all(published.map(async repo => {
+        try {
+          const tree = await api("/repos/" + USER + "/" + encodeURIComponent(repo.name) + "/git/trees/" + encodeURIComponent(repo.default_branch) + "?recursive=1");
+          const manifests = (tree.tree || []).filter(f => f.type === "blob" && /(^|\/)(manifest\.(webmanifest|json)|site\.webmanifest)$/i.test(f.path));
+          const perRepo = await Promise.all(manifests.map(async file => {
+            try {
+              const raw = await fetch("https://raw.githubusercontent.com/" + USER + "/" + encodeURIComponent(repo.name) + "/" + encodeURIComponent(repo.default_branch) + "/" + file.path.split("/").map(encodeURIComponent).join("/"), {cache:"no-store"});
+              if (!raw.ok) return null;
+              const manifest = await raw.json(); if (!validManifest(manifest)) return null;
+              const base = manifestBase(repo.name, file.path);
+              return { name: manifest.short_name || manifest.name, repo: repo.name, url: new URL(manifest.start_url || "./", base).href, icon: await findIcon(base, manifest), color: manifest.theme_color || "#596277" };
+            } catch { return null; }
+          }));
+          return perRepo.filter(Boolean);
+        } catch { return []; }
+      }));
+      return found.flat().sort((a,b) => a.name.localeCompare(b.name, "pt-BR"));
+    }
+    function show(apps) {
+      appsEl.innerHTML = apps.length ? apps.map(a => {
+        const icon = a.icon ? '<img class="icon" src="' + escaped(a.icon) + '" alt="" onerror="this.replaceWith(Object.assign(document.createElement(\'div\'),{className:\'icon fallback\',textContent:' + JSON.stringify(a.name.slice(0,1).toUpperCase()) + ',style:\'--color:' + escaped(a.color) + '\'}))">' : '<div class="icon fallback" style="--color:' + escaped(a.color) + '">' + escaped(a.name.slice(0,1).toUpperCase()) + '</div>';
+        return '<a class="app" href="' + escaped(a.url) + '"><span>' + icon + '</span><span><span class="name">' + escaped(a.name) + '</span><span class="repo">' + escaped(a.repo) + '</span></span></a>';
+      }).join("") : '<div class="empty">Nenhum PWA publicado foi encontrado agora. Para entrar aqui automaticamente, o repositório precisa ser público, ter GitHub Pages ativado e conter um manifesto PWA.</div>';
+    }
+    async function load() {
+      statusEl.textContent = "Procurando seus PWAs…"; appsEl.innerHTML = "";
+      try { const apps = await discover(); show(apps); statusEl.textContent = apps.length + (apps.length === 1 ? " PWA encontrado" : " PWAs encontrados"); }
+      catch { appsEl.innerHTML = '<div class="empty">Não foi possível consultar o GitHub agora. Toque em Atualizar para tentar de novo.</div>'; statusEl.textContent = "Consulta indisponível"; }
+    }
+    document.querySelector("#refresh").addEventListener("click", load); load();
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+  </script>
+</body>
+</html>
