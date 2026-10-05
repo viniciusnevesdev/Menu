@@ -74,9 +74,13 @@
     }
     function show(apps) {
       appsEl.innerHTML = apps.length ? apps.map(a => {
-        const icon = a.icon ? '<img class="icon" src="' + escaped(a.icon) + '" alt="" onerror="this.replaceWith(Object.assign(document.createElement(\'div\'),{className:\'icon fallback\',textContent:' + JSON.stringify(a.name.slice(0,1).toUpperCase()) + ',style:\'--color:' + escaped(a.color) + '\'}))">' : '<div class="icon fallback" style="--color:' + escaped(a.color) + '">' + escaped(a.name.slice(0,1).toUpperCase()) + '</div>';
+        const icon = a.icon ? '<img class="icon" src="' + escaped(a.icon) + '" alt="" data-letter="' + escaped(a.name.slice(0,1).toUpperCase()) + '" data-color="' + escaped(a.color) + '">' : '<div class="icon fallback" style="--color:' + escaped(a.color) + '">' + escaped(a.name.slice(0,1).toUpperCase()) + '</div>';
         return '<a class="app" href="' + escaped(a.url) + '"><span>' + icon + '</span><span><span class="name">' + escaped(a.name) + '</span><span class="repo">' + escaped(a.repo) + '</span></span></a>';
       }).join("") : '<div class="empty">Nenhum PWA publicado foi encontrado agora. Para entrar aqui automaticamente, o repositório precisa ser público, ter GitHub Pages ativado e conter um manifesto PWA.</div>';
+      appsEl.querySelectorAll("img[data-letter]").forEach(img => img.addEventListener("error", () => {
+        const fallback = document.createElement("div"); fallback.className = "icon fallback";
+        fallback.style.setProperty("--color", img.dataset.color); fallback.textContent = img.dataset.letter; img.replaceWith(fallback);
+      }, {once:true}));
     }
     async function load() {
       statusEl.textContent = "Procurando seus PWAs…"; appsEl.innerHTML = "";
