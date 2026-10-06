@@ -48,6 +48,13 @@
     function manifestBase(repo, path) { return pagesBase(repo) + path.split("/").slice(0,-1).map(encodeURIComponent).join("/") + (path.includes("/") ? "/" : ""); }
     function validManifest(m) { return ["standalone","minimal-ui","fullscreen"].includes(m.display) && (m.name || m.short_name); }
     function versioned(url, version) { const u = new URL(url); u.searchParams.set("menu_icon", version); return u.href; }
+    function fallbackColor(color) {
+      const hex = String(color || "").match(/^#([\da-f]{3}|[\da-f]{6})$/i)?.[1];
+      if (!hex) return "#596277";
+      const value = hex.length === 3 ? hex.split("").map(c => c + c).join("") : hex;
+      const [r,g,b] = [0,2,4].map(i => parseInt(value.slice(i,i+2), 16));
+      return (r * 0.299 + g * 0.587 + b * 0.114) > 160 ? "#596277" : color;
+    }
     async function findIcon(base, manifest, version) {
       const icons = Array.isArray(manifest.icons) ? manifest.icons : [];
       const icon = icons.find(i => /512/.test(i.sizes || "")) || icons[0];
@@ -94,7 +101,7 @@
             const letter = a.name.trim().slice(0,1).toUpperCase() || "?";
             const image = a.icon ? '<img class="app-icon" src="' + escaped(a.icon) + '" alt="" data-icon-image>' : "";
             return '<a class="app" href="' + escaped(a.url) + '">' +
-              '<span class="icon icon-wrap" style="--color:' + escaped(a.color) + '" aria-hidden="true"><span>' + escaped(letter) + '</span>' + image + '</span>' +
+              '<span class="icon icon-wrap" style="--color:' + escaped(fallbackColor(a.color)) + '" aria-hidden="true"><span>' + escaped(letter) + '</span>' + image + '</span>' +
               '<span class="name">' + escaped(a.name) + '</span></a>';
           }).join("") + '</div></section>'
       ).join("");
