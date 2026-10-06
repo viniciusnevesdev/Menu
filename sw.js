@@ -1,4 +1,4 @@
-const CACHE = "menu-pwas-v4";
+const CACHE = "menu-pwas-v5";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg", "./apps.json"];
 
 self.addEventListener("install", event => event.waitUntil(
