@@ -1,4 +1,4 @@
-const CACHE = "menu-pwas-v2";
+const CACHE = "menu-pwas-v3";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
 self.addEventListener("install", event => event.waitUntil(
   caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key))))
