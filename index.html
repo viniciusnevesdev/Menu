@@ -146,16 +146,16 @@
           '<div class="group-apps">' + group.map(app => {
             const letter = app.name.trim().slice(0, 1).toUpperCase() || "?";
             const candidates = [...new Set([...(Array.isArray(app.iconCandidates) ? app.iconCandidates : []), app.icon].filter(Boolean))];
-            const image = candidates.length ? '<img class="app-icon" src="' + escaped(iconVersion(candidates[0], version)) + '" alt="" data-icon-image>' : "";
+            const image = candidates.length ? '<img class="app-icon" src="' + escaped(iconVersion(candidates[0], version)) + '" alt="" data-icon-image data-icon-candidates="' + escaped(JSON.stringify(candidates)) + '">' : "";
             return '<a class="app" href="' + escaped(app.url) + '">' +
               '<span class="icon icon-wrap" style="--color:' + escaped(fallbackColor(app.color)) + '" aria-hidden="true"><span>' + escaped(letter) + '</span>' + image + '</span>' +
               '<span class="name">' + escaped(app.name) + '</span></a>';
           }).join("") + '</div></section>'
       ).join("");
 
-      appsEl.querySelectorAll("img[data-icon-image]").forEach((image, index) => {
-        const app = apps[index];
-        const candidates = [...new Set([...(Array.isArray(app.iconCandidates) ? app.iconCandidates : []), app.icon].filter(Boolean))];
+      appsEl.querySelectorAll("img[data-icon-image]").forEach(image => {
+        let candidates = [];
+        try { candidates = JSON.parse(image.dataset.iconCandidates || "[]"); } catch { candidates = []; }
         let position = 0;
         const reveal = () => image.classList.add("loaded");
         if (image.complete && image.naturalWidth) reveal();
