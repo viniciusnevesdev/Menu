@@ -73,14 +73,21 @@ jobs:
                       ? file.path.split("/").slice(0, -1).map(encodeURIComponent).join("/") + "/"
                       : "";
                     const base = "https://" + owner + ".github.io/" + encodeURIComponent(repo.name) + "/" + directory;
-                    const icons = Array.isArray(manifest.icons) ? manifest.icons : [];
-                    const icon = icons.find(item => /512/.test(item.sizes || "")) || icons.find(item => item.src);
+                    const icons = (Array.isArray(manifest.icons) ? manifest.icons : [])
+                      .filter(item => item && item.src)
+                      .slice()
+                      .sort((a, b) => {
+                        const score = item => (/512/.test(item.sizes || "") ? 4 : 0) + (/192/.test(item.sizes || "") ? 3 : 0) + (/180/.test(item.sizes || "") ? 2 : 0) + (/maskable/.test(item.purpose || "") ? 1 : 0);
+                        return score(b) - score(a);
+                      });
+                    const iconCandidates = [...new Set(icons.map(item => resolveUrl(base, item.src)))];
 
                     apps.push({
                       name: manifest.short_name || manifest.name,
                       repo: repo.name,
                       url: resolveUrl(base, manifest.start_url),
-                      icon: icon && icon.src ? resolveUrl(base, icon.src) : "",
+                      icon: iconCandidates[0] || "",
+                      iconCandidates,
                       color: manifest.theme_color || "#596277",
                       manifest: file.path
                     });
