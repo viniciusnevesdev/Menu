@@ -1,180 +1,28 @@
 {
-  "schema": 1,
-  "generatedAt": "2026-10-06T13:55:22.195Z",
+  "schema": 2,
+  "generatedAt": "2026-10-06T19:56:53.901Z",
   "apps": [
-    {
-      "name": "Áreas Beta",
-      "repo": "cronometro-oficial",
-      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/areas-beta/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/areas-beta/../beta/app-icon-beta-512.png?v=arch-v2",
-      "color": "#F2F2F7",
-      "manifest": "areas-beta/manifest.webmanifest"
-    },
-    {
-      "name": "Arquivo 0.8.0",
-      "repo": "cronometro-oficial",
-      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.0/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.0/icon.svg",
-      "color": "#F2F2F6",
-      "manifest": "versoes/0.8.0/manifest.webmanifest"
-    },
-    {
-      "name": "Arquivo 0.8.1",
-      "repo": "cronometro-oficial",
-      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.1/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.1/icon.svg",
-      "color": "#F2F2F6",
-      "manifest": "versoes/0.8.1/manifest.webmanifest"
-    },
-    {
-      "name": "Arquivo 0.8.2",
-      "repo": "cronometro-oficial",
-      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.2/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.2/icon.svg",
-      "color": "#F2F2F6",
-      "manifest": "versoes/0.8.2/manifest.webmanifest"
-    },
-    {
-      "name": "Arquivo 0.8.3",
-      "repo": "cronometro-oficial",
-      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.3/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.3/icon.svg",
-      "color": "#F2F2F6",
-      "manifest": "versoes/0.8.3/manifest.webmanifest"
-    },
-    {
-      "name": "Arquivo 0.8.4",
-      "repo": "cronometro-oficial",
-      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.4/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.4/icon.svg",
-      "color": "#F2F2F6",
-      "manifest": "versoes/0.8.4/manifest.webmanifest"
-    },
-    {
-      "name": "Arquivo 0.8.5",
-      "repo": "cronometro-oficial",
-      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.5/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.5/icon.svg",
-      "color": "#F2F2F6",
-      "manifest": "versoes/0.8.5/manifest.webmanifest"
-    },
-    {
-      "name": "Arquivo 0.8.6",
-      "repo": "cronometro-oficial",
-      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.6/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.6/icon.svg",
-      "color": "#F2F2F6",
-      "manifest": "versoes/0.8.6/manifest.webmanifest"
-    },
-    {
-      "name": "Arquivo 0.8.7",
-      "repo": "cronometro-oficial",
-      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.7/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.7/icon.svg",
-      "color": "#F2F2F6",
-      "manifest": "versoes/0.8.7/manifest.webmanifest"
-    },
-    {
-      "name": "Arquivo 0.8.8",
-      "repo": "cronometro-oficial",
-      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.8/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.8/icon.svg",
-      "color": "#F2F2F6",
-      "manifest": "versoes/0.8.8/manifest.webmanifest"
-    },
-    {
-      "name": "Clientes Beta",
-      "repo": "cronometro-oficial",
-      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/clientes-beta/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/clientes-beta/../beta/app-icon-beta-512.png?v=arch-v2",
-      "color": "#F2F2F7",
-      "manifest": "clientes-beta/manifest.webmanifest"
-    },
-    {
-      "name": "Crono",
-      "repo": "crono-app",
-      "url": "https://viniciusnevesdev.github.io/crono-app/",
-      "icon": "https://viniciusnevesdev.github.io/crono-app/icons/icon-512.jpg",
-      "color": "#f5f5f7",
-      "manifest": "manifest.webmanifest"
-    },
-    {
-      "name": "Crono Beta",
-      "repo": "crono-app",
-      "url": "https://viniciusnevesdev.github.io/crono-app/beta/",
-      "icon": "https://viniciusnevesdev.github.io/crono-app/beta/../icons/icon-512.jpg",
-      "color": "#f5f5f7",
-      "manifest": "beta/manifest.webmanifest"
-    },
-    {
-      "name": "Cronômetro",
-      "repo": "cronometro-oficial",
-      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/app-icon-512.png?v=official-icon-20260925",
-      "color": "#F2F2F6",
-      "manifest": "manifest.webmanifest"
-    },
-    {
-      "name": "Cronômetro",
-      "repo": "cronometro-app",
-      "url": "https://viniciusnevesdev.github.io/cronometro-app/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-app/app-icon-512.png",
-      "color": "#F2F2F6",
-      "manifest": "manifest.webmanifest"
-    },
-    {
-      "name": "Cronômetro Beta",
-      "repo": "cronometro-oficial",
-      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/beta/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/beta/app-icon-beta-512.png?v=beta-icon-20260925",
-      "color": "#F2F2F6",
-      "manifest": "beta/manifest.webmanifest"
-    },
-    {
-      "name": "Cronômetro Simples",
-      "repo": "cronometro-oficial",
-      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/simple/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/simple/app-icon-512.png?v=official-icon-20260925",
-      "color": "#F2F2F6",
-      "manifest": "simple/manifest.webmanifest"
-    },
-    {
-      "name": "Dinheiro Beta",
-      "repo": "Controle-financeiro",
-      "url": "https://viniciusnevesdev.github.io/Controle-financeiro/beta/",
-      "icon": "https://viniciusnevesdev.github.io/Controle-financeiro/beta/icons/icon-512.png",
-      "color": "#f6f7f4",
-      "manifest": "beta/manifest.webmanifest"
-    },
     {
       "name": "Ícones",
       "repo": "Alimentacao",
       "url": "https://viniciusnevesdev.github.io/Alimentacao/icon-studio/",
       "icon": "https://viniciusnevesdev.github.io/Alimentacao/icon-studio/../icon-menu-512.png?v=2",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/Alimentacao/icon-studio/../icon-menu-512.png?v=2",
+        "https://viniciusnevesdev.github.io/Alimentacao/icon-studio/../icon-menu-192.png?v=2"
+      ],
       "color": "#0a8f4e",
       "manifest": "icon-studio/manifest.webmanifest"
-    },
-    {
-      "name": "Meu Dinheiro",
-      "repo": "Controle-financeiro",
-      "url": "https://viniciusnevesdev.github.io/Controle-financeiro/",
-      "icon": "https://viniciusnevesdev.github.io/Controle-financeiro/icons/icon-512.png",
-      "color": "#f6f7f4",
-      "manifest": "manifest.webmanifest"
-    },
-    {
-      "name": "Meu Dinheiro",
-      "repo": "Controle-financeiro",
-      "url": "https://viniciusnevesdev.github.io/Controle-financeiro/source/public/",
-      "icon": "https://viniciusnevesdev.github.io/Controle-financeiro/source/public/apple-touch-icon.png",
-      "color": "#f6f7f4",
-      "manifest": "source/public/manifest.webmanifest"
     },
     {
       "name": "NutriTrack",
       "repo": "Alimentacao",
       "url": "https://viniciusnevesdev.github.io/Alimentacao/",
       "icon": "https://viniciusnevesdev.github.io/Alimentacao/icon-official-512.png?v=9",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/Alimentacao/icon-official-512.png?v=9",
+        "https://viniciusnevesdev.github.io/Alimentacao/icon-official-192.png?v=9"
+      ],
       "color": "#10a66f",
       "manifest": "manifest.webmanifest"
     },
@@ -183,14 +31,290 @@
       "repo": "Alimentacao",
       "url": "https://viniciusnevesdev.github.io/Alimentacao/beta/",
       "icon": "https://viniciusnevesdev.github.io/Alimentacao/beta/icon-beta-512.png?v=11",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/Alimentacao/beta/icon-beta-512.png?v=11",
+        "https://viniciusnevesdev.github.io/Alimentacao/beta/icon-beta-192.png?v=11"
+      ],
       "color": "#10a66f",
       "manifest": "beta/manifest.webmanifest"
+    },
+    {
+      "name": "Imagens",
+      "repo": "Buscar-imagens",
+      "url": "https://viniciusnevesdev.github.io/Buscar-imagens/",
+      "icon": "https://viniciusnevesdev.github.io/Buscar-imagens/icons/icon.svg",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/Buscar-imagens/icons/icon.svg"
+      ],
+      "color": "#0d0f16",
+      "manifest": "manifest.webmanifest"
+    },
+    {
+      "name": "Dinheiro Beta",
+      "repo": "Controle-financeiro",
+      "url": "https://viniciusnevesdev.github.io/Controle-financeiro/beta/",
+      "icon": "https://viniciusnevesdev.github.io/Controle-financeiro/beta/icons/icon-512.png",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/Controle-financeiro/beta/icons/icon-512.png",
+        "https://viniciusnevesdev.github.io/Controle-financeiro/beta/icons/icon-192.png"
+      ],
+      "color": "#f6f7f4",
+      "manifest": "beta/manifest.webmanifest"
+    },
+    {
+      "name": "Meu Dinheiro",
+      "repo": "Controle-financeiro",
+      "url": "https://viniciusnevesdev.github.io/Controle-financeiro/",
+      "icon": "https://viniciusnevesdev.github.io/Controle-financeiro/icons/icon-512.png",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/Controle-financeiro/icons/icon-512.png",
+        "https://viniciusnevesdev.github.io/Controle-financeiro/icons/icon-192.png"
+      ],
+      "color": "#f6f7f4",
+      "manifest": "manifest.webmanifest"
+    },
+    {
+      "name": "Meu Dinheiro",
+      "repo": "Controle-financeiro",
+      "url": "https://viniciusnevesdev.github.io/Controle-financeiro/source/public/",
+      "icon": "https://viniciusnevesdev.github.io/Controle-financeiro/source/public/apple-touch-icon.png",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/Controle-financeiro/source/public/apple-touch-icon.png"
+      ],
+      "color": "#f6f7f4",
+      "manifest": "source/public/manifest.webmanifest"
+    },
+    {
+      "name": "Crono",
+      "repo": "crono-app",
+      "url": "https://viniciusnevesdev.github.io/crono-app/",
+      "icon": "https://viniciusnevesdev.github.io/crono-app/icons/maskable-512.jpg",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/crono-app/icons/maskable-512.jpg",
+        "https://viniciusnevesdev.github.io/crono-app/icons/icon-512.jpg",
+        "https://viniciusnevesdev.github.io/crono-app/icons/icon-192.png",
+        "https://viniciusnevesdev.github.io/crono-app/icons/apple-touch-icon-180.png",
+        "https://viniciusnevesdev.github.io/crono-app/icons/favicon-32.png"
+      ],
+      "color": "#f5f5f7",
+      "manifest": "manifest.webmanifest"
+    },
+    {
+      "name": "Crono Beta",
+      "repo": "crono-app",
+      "url": "https://viniciusnevesdev.github.io/crono-app/beta/",
+      "icon": "https://viniciusnevesdev.github.io/crono-app/beta/../icons/maskable-512.jpg",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/crono-app/beta/../icons/maskable-512.jpg",
+        "https://viniciusnevesdev.github.io/crono-app/beta/../icons/icon-512.jpg",
+        "https://viniciusnevesdev.github.io/crono-app/beta/../icons/icon-192.png",
+        "https://viniciusnevesdev.github.io/crono-app/beta/../icons/apple-touch-icon-180.png",
+        "https://viniciusnevesdev.github.io/crono-app/beta/../icons/favicon-32.png"
+      ],
+      "color": "#f5f5f7",
+      "manifest": "beta/manifest.webmanifest"
+    },
+    {
+      "name": "Cronômetro",
+      "repo": "cronometro-app",
+      "url": "https://viniciusnevesdev.github.io/cronometro-app/",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-app/app-icon-512.png",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/cronometro-app/app-icon-512.png",
+        "https://viniciusnevesdev.github.io/cronometro-app/app-icon-192.png"
+      ],
+      "color": "#F2F2F6",
+      "manifest": "manifest.webmanifest"
+    },
+    {
+      "name": "UZE Beta",
+      "repo": "cronometro-app",
+      "url": "https://viniciusnevesdev.github.io/cronometro-app/beta/",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-app/beta/app-icon-512.png?v=beta-icon-20260925",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/cronometro-app/beta/app-icon-512.png?v=beta-icon-20260925",
+        "https://viniciusnevesdev.github.io/cronometro-app/beta/app-icon-192.png?v=beta-icon-20260925"
+      ],
+      "color": "#F2F2F6",
+      "manifest": "beta/manifest.webmanifest"
+    },
+    {
+      "name": "Áreas Beta",
+      "repo": "cronometro-oficial",
+      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/areas-beta/",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/areas-beta/../beta/app-icon-beta-512.png?v=arch-v2",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/cronometro-oficial/areas-beta/../beta/app-icon-beta-512.png?v=arch-v2",
+        "https://viniciusnevesdev.github.io/cronometro-oficial/areas-beta/../beta/app-icon-beta-192.png?v=arch-v2"
+      ],
+      "color": "#F2F2F7",
+      "manifest": "areas-beta/manifest.webmanifest"
+    },
+    {
+      "name": "Arquivo 0.8.0",
+      "repo": "cronometro-oficial",
+      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.0/",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.0/icon.svg",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.0/icon.svg"
+      ],
+      "color": "#F2F2F6",
+      "manifest": "versoes/0.8.0/manifest.webmanifest"
+    },
+    {
+      "name": "Arquivo 0.8.1",
+      "repo": "cronometro-oficial",
+      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.1/",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.1/icon.svg",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.1/icon.svg"
+      ],
+      "color": "#F2F2F6",
+      "manifest": "versoes/0.8.1/manifest.webmanifest"
+    },
+    {
+      "name": "Arquivo 0.8.2",
+      "repo": "cronometro-oficial",
+      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.2/",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.2/icon.svg",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.2/icon.svg"
+      ],
+      "color": "#F2F2F6",
+      "manifest": "versoes/0.8.2/manifest.webmanifest"
+    },
+    {
+      "name": "Arquivo 0.8.3",
+      "repo": "cronometro-oficial",
+      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.3/",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.3/icon.svg",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.3/icon.svg"
+      ],
+      "color": "#F2F2F6",
+      "manifest": "versoes/0.8.3/manifest.webmanifest"
+    },
+    {
+      "name": "Arquivo 0.8.4",
+      "repo": "cronometro-oficial",
+      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.4/",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.4/icon.svg",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.4/icon.svg"
+      ],
+      "color": "#F2F2F6",
+      "manifest": "versoes/0.8.4/manifest.webmanifest"
+    },
+    {
+      "name": "Arquivo 0.8.5",
+      "repo": "cronometro-oficial",
+      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.5/",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.5/icon.svg",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.5/icon.svg"
+      ],
+      "color": "#F2F2F6",
+      "manifest": "versoes/0.8.5/manifest.webmanifest"
+    },
+    {
+      "name": "Arquivo 0.8.6",
+      "repo": "cronometro-oficial",
+      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.6/",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.6/icon.svg",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.6/icon.svg"
+      ],
+      "color": "#F2F2F6",
+      "manifest": "versoes/0.8.6/manifest.webmanifest"
+    },
+    {
+      "name": "Arquivo 0.8.7",
+      "repo": "cronometro-oficial",
+      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.7/",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.7/icon.svg",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.7/icon.svg"
+      ],
+      "color": "#F2F2F6",
+      "manifest": "versoes/0.8.7/manifest.webmanifest"
+    },
+    {
+      "name": "Arquivo 0.8.8",
+      "repo": "cronometro-oficial",
+      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.8/",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.8/icon.svg",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/cronometro-oficial/versoes/0.8.8/icon.svg"
+      ],
+      "color": "#F2F2F6",
+      "manifest": "versoes/0.8.8/manifest.webmanifest"
+    },
+    {
+      "name": "Clientes Beta",
+      "repo": "cronometro-oficial",
+      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/clientes-beta/",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/clientes-beta/../beta/app-icon-beta-512.png?v=arch-v2",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/cronometro-oficial/clientes-beta/../beta/app-icon-beta-512.png?v=arch-v2",
+        "https://viniciusnevesdev.github.io/cronometro-oficial/clientes-beta/../beta/app-icon-beta-192.png?v=arch-v2"
+      ],
+      "color": "#F2F2F7",
+      "manifest": "clientes-beta/manifest.webmanifest"
+    },
+    {
+      "name": "Cronômetro",
+      "repo": "cronometro-oficial",
+      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/app-icon-512.png?v=official-icon-20260925",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/cronometro-oficial/app-icon-512.png?v=official-icon-20260925",
+        "https://viniciusnevesdev.github.io/cronometro-oficial/app-icon-192.png?v=official-icon-20260925"
+      ],
+      "color": "#F2F2F6",
+      "manifest": "manifest.webmanifest"
+    },
+    {
+      "name": "Cronômetro Beta",
+      "repo": "cronometro-oficial",
+      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/beta/",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/beta/app-icon-beta-512.png?v=beta-icon-20260925",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/cronometro-oficial/beta/app-icon-beta-512.png?v=beta-icon-20260925",
+        "https://viniciusnevesdev.github.io/cronometro-oficial/beta/app-icon-beta-192.png?v=beta-icon-20260925"
+      ],
+      "color": "#F2F2F6",
+      "manifest": "beta/manifest.webmanifest"
+    },
+    {
+      "name": "Cronômetro Simples",
+      "repo": "cronometro-oficial",
+      "url": "https://viniciusnevesdev.github.io/cronometro-oficial/simple/",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/simple/app-icon-512.png?v=official-icon-20260925",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/cronometro-oficial/simple/app-icon-512.png?v=official-icon-20260925",
+        "https://viniciusnevesdev.github.io/cronometro-oficial/simple/app-icon-192.png?v=official-icon-20260925"
+      ],
+      "color": "#F2F2F6",
+      "manifest": "simple/manifest.webmanifest"
+    },
+    {
+      "name": "UI Builder",
+      "repo": "Html-e-css-creator",
+      "url": "https://viniciusnevesdev.github.io/Html-e-css-creator/",
+      "icon": "https://viniciusnevesdev.github.io/Html-e-css-creator/icon-512.png",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/Html-e-css-creator/icon-512.png",
+        "https://viniciusnevesdev.github.io/Html-e-css-creator/icon-180.png"
+      ],
+      "color": "#0b0b0d",
+      "manifest": "manifest.webmanifest"
     },
     {
       "name": "Registro",
       "repo": "Registro-mental-pwa",
       "url": "https://viniciusnevesdev.github.io/Registro-mental-pwa/",
       "icon": "",
+      "iconCandidates": [],
       "color": "#f5f5f7",
       "manifest": "manifest.webmanifest"
     },
@@ -199,6 +323,9 @@
       "repo": "Registro-mental-v1",
       "url": "https://viniciusnevesdev.github.io/Registro-mental-v1/launch.html?v=1.2.5",
       "icon": "https://viniciusnevesdev.github.io/Registro-mental-v1/icon-oficial.jpeg?v=20260915-2",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/Registro-mental-v1/icon-oficial.jpeg?v=20260915-2"
+      ],
       "color": "#f5f5f7",
       "manifest": "manifest.webmanifest"
     },
@@ -207,6 +334,9 @@
       "repo": "Registro-mental-v1",
       "url": "https://viniciusnevesdev.github.io/Registro-mental-v1/beta/atualizar.html?v=1.2.0-beta.51",
       "icon": "https://viniciusnevesdev.github.io/Registro-mental-v1/beta/icon-beta.jpeg?v=20260915-2",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/Registro-mental-v1/beta/icon-beta.jpeg?v=20260915-2"
+      ],
       "color": "#f5f5f7",
       "manifest": "beta/manifest.webmanifest"
     },
@@ -215,6 +345,7 @@
       "repo": "seletor-fotos-unhas",
       "url": "https://viniciusnevesdev.github.io/seletor-fotos-unhas/",
       "icon": "",
+      "iconCandidates": [],
       "color": "#111111",
       "manifest": "manifest.webmanifest"
     },
@@ -223,6 +354,10 @@
       "repo": "Simbolos",
       "url": "https://viniciusnevesdev.github.io/Simbolos/",
       "icon": "https://viniciusnevesdev.github.io/Simbolos/icons/icon-v1.5.8-512.png",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/Simbolos/icons/icon-v1.5.8-512.png",
+        "https://viniciusnevesdev.github.io/Simbolos/icons/icon-v1.5.8-192.png"
+      ],
       "color": "#f5f5f7",
       "manifest": "manifest.webmanifest"
     },
@@ -231,6 +366,10 @@
       "repo": "Simbolos",
       "url": "https://viniciusnevesdev.github.io/Simbolos/beta/",
       "icon": "https://viniciusnevesdev.github.io/Simbolos/beta/icons/icon-v1.4.22-beta.1-512.png",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/Simbolos/beta/icons/icon-v1.4.22-beta.1-512.png",
+        "https://viniciusnevesdev.github.io/Simbolos/beta/icons/icon-v1.4.22-beta.1-192.png"
+      ],
       "color": "#ff9500",
       "manifest": "beta/manifest.webmanifest"
     },
@@ -239,24 +378,22 @@
       "repo": "supertext",
       "url": "https://viniciusnevesdev.github.io/supertext/",
       "icon": "https://viniciusnevesdev.github.io/supertext/icon.svg",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/supertext/icon.svg"
+      ],
       "color": "#0b1020",
       "manifest": "manifest.webmanifest"
     },
     {
-      "name": "UI Builder",
-      "repo": "Html-e-css-creator",
-      "url": "https://viniciusnevesdev.github.io/Html-e-css-creator/",
-      "icon": "https://viniciusnevesdev.github.io/Html-e-css-creator/icon-512.png",
-      "color": "#0b0b0d",
+      "name": "Vini UI",
+      "repo": "Vini-ui",
+      "url": "https://viniciusnevesdev.github.io/Vini-ui/",
+      "icon": "https://viniciusnevesdev.github.io/Vini-ui/icons/vini-ui.svg",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/Vini-ui/icons/vini-ui.svg"
+      ],
+      "color": "#f5f5f7",
       "manifest": "manifest.webmanifest"
-    },
-    {
-      "name": "UZE Beta",
-      "repo": "cronometro-app",
-      "url": "https://viniciusnevesdev.github.io/cronometro-app/beta/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-app/beta/app-icon-512.png?v=beta-icon-20260925",
-      "color": "#F2F2F6",
-      "manifest": "beta/manifest.webmanifest"
     }
   ],
   "failures": []
