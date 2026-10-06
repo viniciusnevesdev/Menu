@@ -41,83 +41,64 @@
     <footer>Atualiza automaticamente ao abrir.</footer>
   </main>
   <script>
-    const USER = "viniciusnevesdev", appsEl = document.querySelector("#apps"), statusEl = document.querySelector("#status");
-    const api = (path) => fetch("https://api.github.com" + path, {cache:"no-store"}).then(async r => { if (!r.ok) throw new Error(r.status); return r.json(); });
-    const pagesBase = repo => "https://" + USER + ".github.io/" + encodeURIComponent(repo) + "/";
-    const escaped = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-    function manifestBase(repo, path) { return pagesBase(repo) + path.split("/").slice(0,-1).map(encodeURIComponent).join("/") + (path.includes("/") ? "/" : ""); }
-    function validManifest(m) { return ["standalone","minimal-ui","fullscreen"].includes(m.display) && (m.name || m.short_name); }
-    function versioned(url, version) { const u = new URL(url); u.searchParams.set("menu_icon", version); return u.href; }
+    const appsEl = document.querySelector("#apps");
+    const statusEl = document.querySelector("#status");
+    const escaped = value => String(value).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
     function fallbackColor(color) {
       const hex = String(color || "").match(/^#([\da-f]{3}|[\da-f]{6})$/i)?.[1];
       if (!hex) return "#596277";
-      const value = hex.length === 3 ? hex.split("").map(c => c + c).join("") : hex;
-      const [r,g,b] = [0,2,4].map(i => parseInt(value.slice(i,i+2), 16));
+      const value = hex.length === 3 ? hex.split("").map(char => char + char).join("") : hex;
+      const [r, g, b] = [0, 2, 4].map(index => parseInt(value.slice(index, index + 2), 16));
       return (r * 0.299 + g * 0.587 + b * 0.114) > 160 ? "#596277" : color;
-    }
-    async function findIcon(base, manifest, version) {
-      const icons = Array.isArray(manifest.icons) ? manifest.icons : [];
-      const icon = icons.find(i => /512/.test(i.sizes || "")) || icons[0];
-      if (icon && icon.src) return versioned(new URL(icon.src, base).href, version);
-      try {
-        const html = await (await fetch(base, {cache:"no-store"})).text();
-        const tag = html.match(/<link[^>]+rel=["'][^"']*(?:apple-touch-icon|icon)[^"']*["'][^>]*>/i)?.[0];
-        const href = tag?.match(/href=["']([^"']+)["']/i)?.[1];
-        return href ? versioned(new URL(href, base).href, version) : "";
-      } catch { return ""; }
-    }
-    async function discover() {
-      const repos = await api("/users/" + USER + "/repos?per_page=100&sort=updated");
-      const published = repos.filter(r => r.has_pages && !r.archived && r.name !== "Menu");
-      const found = await Promise.all(published.map(async repo => {
-        try {
-          const tree = await api("/repos/" + USER + "/" + encodeURIComponent(repo.name) + "/git/trees/" + encodeURIComponent(repo.default_branch) + "?recursive=1");
-          const manifests = (tree.tree || []).filter(f => f.type === "blob" && /(^|\/)(manifest\.(webmanifest|json)|site\.webmanifest)$/i.test(f.path));
-          const perRepo = await Promise.all(manifests.map(async file => {
-            try {
-              const raw = await fetch("https://raw.githubusercontent.com/" + USER + "/" + encodeURIComponent(repo.name) + "/" + encodeURIComponent(repo.default_branch) + "/" + file.path.split("/").map(encodeURIComponent).join("/"), {cache:"no-store"});
-              if (!raw.ok) return null;
-              const manifest = await raw.json(); if (!validManifest(manifest)) return null;
-              const base = manifestBase(repo.name, file.path);
-              return { name: manifest.short_name || manifest.name, repo: repo.name, url: new URL(manifest.start_url || "./", base).href, icon: await findIcon(base, manifest, file.sha), color: manifest.theme_color || "#596277" };
-            } catch { return null; }
-          }));
-          return perRepo.filter(Boolean);
-        } catch { return []; }
-      }));
-      return found.flat().sort((a,b) => a.name.localeCompare(b.name, "pt-BR"));
     }
     function show(apps) {
       if (!apps.length) {
-        appsEl.innerHTML = '<div class="empty">Nenhum PWA publicado foi encontrado agora. Para entrar aqui automaticamente, o repositório precisa ser público, ter GitHub Pages ativado e conter um manifesto PWA.</div>';
+        appsEl.innerHTML = '<div class="empty">Nenhum PWA publicado foi encontrado no catálogo.</div>';
         return;
       }
       const groups = new Map();
-      apps.forEach(app => { if (!groups.has(app.repo)) groups.set(app.repo, []); groups.get(app.repo).push(app); });
-      appsEl.innerHTML = [...groups.entries()].sort(([a],[b]) => a.localeCompare(b, "pt-BR")).map(([repo, group]) =>
+      apps.forEach(app => {
+        if (!groups.has(app.repo)) groups.set(app.repo, []);
+        groups.get(app.repo).push(app);
+      });
+      appsEl.innerHTML = [...groups.entries()].sort(([a], [b]) => a.localeCompare(b, "pt-BR")).map(([repo, group]) =>
         '<section class="repo-group" aria-label="Aplicativos do repositório ' + escaped(repo) + '">' +
           '<h2 class="group-title">' + escaped(repo) + '</h2>' +
-          '<div class="group-apps">' + group.map(a => {
-            const letter = a.name.trim().slice(0,1).toUpperCase() || "?";
-            const image = a.icon ? '<img class="app-icon" src="' + escaped(a.icon) + '" alt="" data-icon-image>' : "";
-            return '<a class="app" href="' + escaped(a.url) + '">' +
-              '<span class="icon icon-wrap" style="--color:' + escaped(fallbackColor(a.color)) + '" aria-hidden="true"><span>' + escaped(letter) + '</span>' + image + '</span>' +
-              '<span class="name">' + escaped(a.name) + '</span></a>';
+          '<div class="group-apps">' + group.map(app => {
+            const letter = app.name.trim().slice(0, 1).toUpperCase() || "?";
+            const image = app.icon ? '<img class="app-icon" src="' + escaped(app.icon) + '" alt="" data-icon-image>' : "";
+            return '<a class="app" href="' + escaped(app.url) + '">' +
+              '<span class="icon icon-wrap" style="--color:' + escaped(fallbackColor(app.color)) + '" aria-hidden="true"><span>' + escaped(letter) + '</span>' + image + '</span>' +
+              '<span class="name">' + escaped(app.name) + '</span></a>';
           }).join("") + '</div></section>'
       ).join("");
-      appsEl.querySelectorAll("img[data-icon-image]").forEach(img => {
-        const reveal = () => img.classList.add("loaded");
-        if (img.complete && img.naturalWidth) reveal(); else img.addEventListener("load", reveal, {once:true});
-        img.addEventListener("error", () => img.remove(), {once:true});
+      appsEl.querySelectorAll("img[data-icon-image]").forEach(image => {
+        const reveal = () => image.classList.add("loaded");
+        if (image.complete && image.naturalWidth) reveal();
+        else image.addEventListener("load", reveal, { once: true });
+        image.addEventListener("error", () => image.remove(), { once: true });
       });
     }
     async function load() {
-      statusEl.textContent = "Procurando seus PWAs…"; appsEl.innerHTML = "";
-      try { const apps = await discover(); show(apps); statusEl.textContent = apps.length + (apps.length === 1 ? " PWA encontrado" : " PWAs encontrados"); }
-      catch { appsEl.innerHTML = '<div class="empty">Não foi possível consultar o GitHub agora. Toque em Atualizar para tentar de novo.</div>'; statusEl.textContent = "Consulta indisponível"; }
+      statusEl.textContent = "Carregando catálogo de PWAs…";
+      appsEl.innerHTML = "";
+      try {
+        const response = await fetch("./apps.json?v=" + Date.now(), { cache: "no-store" });
+        if (!response.ok) throw new Error(response.status);
+        const catalog = await response.json();
+        const apps = Array.isArray(catalog.apps) ? catalog.apps : [];
+        const failures = Array.isArray(catalog.failures) ? catalog.failures : [];
+        show(apps);
+        statusEl.textContent = apps.length + (apps.length === 1 ? " PWA encontrado" : " PWAs encontrados") +
+          (failures.length ? " • " + failures.length + " item(ns) para revisar" : "");
+      } catch {
+        appsEl.innerHTML = '<div class="empty">Não foi possível carregar o catálogo agora. Toque em Atualizar para tentar novamente.</div>';
+        statusEl.textContent = "Catálogo indisponível";
+      }
     }
-    document.querySelector("#refresh").addEventListener("click", load); load();
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+    document.querySelector("#refresh").addEventListener("click", load);
+    load();
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(() => {});
   </script>
 </body>
 </html>
