@@ -1,6 +1,10 @@
 name: Atualizar catalogo de PWAs
 
 on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "apps.json"
   workflow_dispatch:
   schedule:
     - cron: "17 * * * *"
