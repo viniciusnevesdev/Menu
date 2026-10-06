@@ -41,9 +41,26 @@
     <footer>Atualiza automaticamente ao abrir.</footer>
   </main>
   <script>
+    const USER = "viniciusnevesdev";
     const appsEl = document.querySelector("#apps");
     const statusEl = document.querySelector("#status");
+    const refreshButton = document.querySelector("#refresh");
+    let savedCatalog = { apps: [], failures: [] };
+
     const escaped = value => String(value).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+    const api = path => fetch("https://api.github.com" + path, { cache: "no-store" }).then(async response => {
+      if (!response.ok) throw new Error(String(response.status));
+      return response.json();
+    });
+    const pagesBase = repo => "https://" + USER + ".github.io/" + encodeURIComponent(repo) + "/";
+    const manifestBase = (repo, path) => pagesBase(repo) + (path.includes("/") ? path.split("/").slice(0, -1).map(encodeURIComponent).join("/") + "/" : "");
+    const validManifest = manifest => ["standalone", "minimal-ui", "fullscreen"].includes(manifest.display) && (manifest.name || manifest.short_name);
+    const iconVersion = (url, version) => {
+      const parsed = new URL(url);
+      parsed.searchParams.set("menu_icon", version);
+      return parsed.href;
+    };
+
     function fallbackColor(color) {
       const hex = String(color || "").match(/^#([\da-f]{3}|[\da-f]{6})$/i)?.[1];
       if (!hex) return "#596277";
@@ -51,9 +68,70 @@
       const [r, g, b] = [0, 2, 4].map(index => parseInt(value.slice(index, index + 2), 16));
       return (r * 0.299 + g * 0.587 + b * 0.114) > 160 ? "#596277" : color;
     }
+
+    function iconCandidates(manifest, base) {
+      return (Array.isArray(manifest.icons) ? manifest.icons : [])
+        .filter(icon => icon && icon.src)
+        .slice()
+        .sort((a, b) => {
+          const score = icon => (/512/.test(icon.sizes || "") ? 4 : 0) + (/192/.test(icon.sizes || "") ? 3 : 0) + (/180/.test(icon.sizes || "") ? 2 : 0) + (/maskable/.test(icon.purpose || "") ? 1 : 0);
+          return score(b) - score(a);
+        })
+        .map(icon => new URL(icon.src, base).href)
+        .filter((url, index, all) => all.indexOf(url) === index);
+    }
+
+    async function listRepositories() {
+      const repos = [];
+      for (let page = 1; ; page += 1) {
+        const batch = await api("/users/" + USER + "/repos?type=owner&per_page=100&page=" + page);
+        repos.push(...batch);
+        if (batch.length < 100) return repos;
+      }
+    }
+
+    async function discoverLive() {
+      const repos = (await listRepositories()).filter(repo => repo.has_pages && !repo.archived && repo.name !== "Menu");
+      const failures = [];
+      const found = await Promise.all(repos.map(async repo => {
+        try {
+          const tree = await api("/repos/" + USER + "/" + encodeURIComponent(repo.name) + "/git/trees/" + encodeURIComponent(repo.default_branch) + "?recursive=1");
+          const manifests = (tree.tree || []).filter(file => file.type === "blob" && /(^|\\/)(manifest\\.(webmanifest|json)|site\\.webmanifest)$/i.test(file.path));
+          const apps = await Promise.all(manifests.map(async file => {
+            try {
+              const rawUrl = "https://raw.githubusercontent.com/" + USER + "/" + encodeURIComponent(repo.name) + "/" + encodeURIComponent(repo.default_branch) + "/" + file.path.split("/").map(encodeURIComponent).join("/");
+              const response = await fetch(rawUrl, { cache: "no-store" });
+              if (!response.ok) throw new Error(String(response.status));
+              const manifest = await response.json();
+              if (!validManifest(manifest)) return null;
+              const base = manifestBase(repo.name, file.path);
+              const icons = iconCandidates(manifest, base);
+              return {
+                name: manifest.short_name || manifest.name,
+                repo: repo.name,
+                url: new URL(manifest.start_url || "./", base).href,
+                icon: icons[0] || "",
+                iconCandidates: icons,
+                color: manifest.theme_color || "#596277",
+                manifest: file.path
+              };
+            } catch (error) {
+              failures.push({ repo: repo.name, manifest: file.path, reason: String(error.message || error) });
+              return null;
+            }
+          }));
+          return apps.filter(Boolean);
+        } catch (error) {
+          failures.push({ repo: repo.name, stage: "tree", reason: String(error.message || error) });
+          return [];
+        }
+      }));
+      return { apps: found.flat().sort((a, b) => a.repo.localeCompare(b.repo, "pt-BR") || a.name.localeCompare(b.name, "pt-BR")), failures };
+    }
+
     function show(apps) {
       if (!apps.length) {
-        appsEl.innerHTML = '<div class="empty">Nenhum PWA publicado foi encontrado no catálogo.</div>';
+        appsEl.innerHTML = '<div class="empty">Nenhum PWA publicado foi encontrado.</div>';
         return;
       }
       const groups = new Map();
@@ -61,43 +139,73 @@
         if (!groups.has(app.repo)) groups.set(app.repo, []);
         groups.get(app.repo).push(app);
       });
+      const version = Date.now();
       appsEl.innerHTML = [...groups.entries()].sort(([a], [b]) => a.localeCompare(b, "pt-BR")).map(([repo, group]) =>
         '<section class="repo-group" aria-label="Aplicativos do repositório ' + escaped(repo) + '">' +
           '<h2 class="group-title">' + escaped(repo) + '</h2>' +
           '<div class="group-apps">' + group.map(app => {
             const letter = app.name.trim().slice(0, 1).toUpperCase() || "?";
-            const image = app.icon ? '<img class="app-icon" src="' + escaped(app.icon) + '" alt="" data-icon-image>' : "";
+            const candidates = [...new Set([...(Array.isArray(app.iconCandidates) ? app.iconCandidates : []), app.icon].filter(Boolean))];
+            const image = candidates.length ? '<img class="app-icon" src="' + escaped(iconVersion(candidates[0], version)) + '" alt="" data-icon-image>' : "";
             return '<a class="app" href="' + escaped(app.url) + '">' +
               '<span class="icon icon-wrap" style="--color:' + escaped(fallbackColor(app.color)) + '" aria-hidden="true"><span>' + escaped(letter) + '</span>' + image + '</span>' +
               '<span class="name">' + escaped(app.name) + '</span></a>';
           }).join("") + '</div></section>'
       ).join("");
-      appsEl.querySelectorAll("img[data-icon-image]").forEach(image => {
+
+      appsEl.querySelectorAll("img[data-icon-image]").forEach((image, index) => {
+        const app = apps[index];
+        const candidates = [...new Set([...(Array.isArray(app.iconCandidates) ? app.iconCandidates : []), app.icon].filter(Boolean))];
+        let position = 0;
         const reveal = () => image.classList.add("loaded");
         if (image.complete && image.naturalWidth) reveal();
         else image.addEventListener("load", reveal, { once: true });
-        image.addEventListener("error", () => image.remove(), { once: true });
+        image.addEventListener("error", () => {
+          position += 1;
+          if (position < candidates.length) image.src = iconVersion(candidates[position], Date.now());
+          else image.remove();
+        });
       });
     }
-    async function load() {
-      statusEl.textContent = "Carregando catálogo de PWAs…";
-      appsEl.innerHTML = "";
+
+    async function loadSavedCatalog() {
+      const response = await fetch("./apps.json?v=" + Date.now(), { cache: "no-store" });
+      if (!response.ok) throw new Error(String(response.status));
+      const catalog = await response.json();
+      savedCatalog = {
+        apps: Array.isArray(catalog.apps) ? catalog.apps : [],
+        failures: Array.isArray(catalog.failures) ? catalog.failures : []
+      };
+      show(savedCatalog.apps);
+      statusEl.textContent = savedCatalog.apps.length + (savedCatalog.apps.length === 1 ? " PWA encontrado" : " PWAs encontrados");
+    }
+
+    async function refreshNow() {
+      refreshButton.disabled = true;
+      statusEl.textContent = "Verificando seus PWAs no GitHub…";
       try {
-        const response = await fetch("./apps.json?v=" + Date.now(), { cache: "no-store" });
-        if (!response.ok) throw new Error(response.status);
-        const catalog = await response.json();
-        const apps = Array.isArray(catalog.apps) ? catalog.apps : [];
-        const failures = Array.isArray(catalog.failures) ? catalog.failures : [];
-        show(apps);
-        statusEl.textContent = apps.length + (apps.length === 1 ? " PWA encontrado" : " PWAs encontrados") +
-          (failures.length ? " • " + failures.length + " item(ns) para revisar" : "");
+        const live = await discoverLive();
+        if (live.apps.length) {
+          show(live.apps);
+          statusEl.textContent = live.apps.length + (live.apps.length === 1 ? " PWA encontrado" : " PWAs encontrados") +
+            (live.failures.length ? " • " + live.failures.length + " item(ns) para revisar" : "");
+        } else {
+          show(savedCatalog.apps);
+          statusEl.textContent = "A verificação falhou; exibindo o último catálogo salvo.";
+        }
       } catch {
-        appsEl.innerHTML = '<div class="empty">Não foi possível carregar o catálogo agora. Toque em Atualizar para tentar novamente.</div>';
-        statusEl.textContent = "Catálogo indisponível";
+        show(savedCatalog.apps);
+        statusEl.textContent = "Não foi possível verificar agora; exibindo o último catálogo salvo.";
+      } finally {
+        refreshButton.disabled = false;
       }
     }
-    document.querySelector("#refresh").addEventListener("click", load);
-    load();
+
+    refreshButton.addEventListener("click", refreshNow);
+    loadSavedCatalog().catch(() => {
+      appsEl.innerHTML = '<div class="empty">Não foi possível carregar o catálogo agora. Toque em Atualizar para tentar novamente.</div>';
+      statusEl.textContent = "Catálogo indisponível";
+    });
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(() => {});
   </script>
 </body>
