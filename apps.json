@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-07T13:22:02.944Z",
+  "generatedAt": "2026-10-07T19:58:51.125Z",
   "apps": [
     {
       "name": "Ícones",
@@ -387,6 +387,17 @@
       "manifest": "beta/manifest.webmanifest"
     },
     {
+      "name": "Supertexto",
+      "repo": "supertext",
+      "url": "https://viniciusnevesdev.github.io/supertext/",
+      "icon": "https://viniciusnevesdev.github.io/supertext/icon.svg",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/supertext/icon.svg"
+      ],
+      "color": "#0b1020",
+      "manifest": "manifest.webmanifest"
+    },
+    {
       "name": "Vini UI",
       "repo": "Vini-ui",
       "url": "https://viniciusnevesdev.github.io/Vini-ui/",
@@ -398,11 +409,5 @@
       "manifest": "manifest.webmanifest"
     }
   ],
-  "failures": [
-    {
-      "repo": "supertext",
-      "stage": "tree",
-      "reason": "fetch failed"
-    }
-  ]
+  "failures": []
 }
