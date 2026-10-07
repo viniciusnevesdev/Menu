@@ -51,10 +51,7 @@ jobs:
                   tree_sha: repo.default_branch,
                   recursive: "true"
                 });
-                const manifests = tree.tree.filter(file =>
-                  file.type === "blob" &&
-                  /(^|\\/)(manifest\\.(webmanifest|json)|site\\.webmanifest)$/i.test(file.path)
-                );
+                const manifests = tree.tree.filter(file => file.type === "blob" && /^(manifest\.(webmanifest|json)|site\.webmanifest)$/i.test(file.path.split("/").pop()));
 
                 for (const file of manifests) {
                   try {
