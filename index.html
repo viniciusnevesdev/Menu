@@ -96,7 +96,7 @@
       const found = await Promise.all(repos.map(async repo => {
         try {
           const tree = await api("/repos/" + USER + "/" + encodeURIComponent(repo.name) + "/git/trees/" + encodeURIComponent(repo.default_branch) + "?recursive=1");
-          const manifests = (tree.tree || []).filter(file => file.type === "blob" && /(^|\\/)(manifest\\.(webmanifest|json)|site\\.webmanifest)$/i.test(file.path));
+          const manifests = (tree.tree || []).filter(file => file.type === "blob" && /^(manifest\.(webmanifest|json)|site\.webmanifest)$/i.test(file.path.split("/").pop()));
           const apps = await Promise.all(manifests.map(async file => {
             try {
               const rawUrl = "https://raw.githubusercontent.com/" + USER + "/" + encodeURIComponent(repo.name) + "/" + encodeURIComponent(repo.default_branch) + "/" + file.path.split("/").map(encodeURIComponent).join("/");
