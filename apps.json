@@ -1,15 +1,15 @@
 {
-  "schema": 2,
-  "generatedAt": "2026-10-06T19:56:53.901Z",
+  "schema": 1,
+  "generatedAt": "2026-10-07T04:12:56.850Z",
   "apps": [
     {
       "name": "Ícones",
       "repo": "Alimentacao",
       "url": "https://viniciusnevesdev.github.io/Alimentacao/icon-studio/",
-      "icon": "https://viniciusnevesdev.github.io/Alimentacao/icon-studio/../icon-menu-512.png?v=2",
+      "icon": "https://viniciusnevesdev.github.io/Alimentacao/icon-menu-512.png?v=2",
       "iconCandidates": [
-        "https://viniciusnevesdev.github.io/Alimentacao/icon-studio/../icon-menu-512.png?v=2",
-        "https://viniciusnevesdev.github.io/Alimentacao/icon-studio/../icon-menu-192.png?v=2"
+        "https://viniciusnevesdev.github.io/Alimentacao/icon-menu-512.png?v=2",
+        "https://viniciusnevesdev.github.io/Alimentacao/icon-menu-192.png?v=2"
       ],
       "color": "#0a8f4e",
       "manifest": "icon-studio/manifest.webmanifest"
@@ -103,13 +103,13 @@
       "name": "Crono Beta",
       "repo": "crono-app",
       "url": "https://viniciusnevesdev.github.io/crono-app/beta/",
-      "icon": "https://viniciusnevesdev.github.io/crono-app/beta/../icons/maskable-512.jpg",
+      "icon": "https://viniciusnevesdev.github.io/crono-app/icons/maskable-512.jpg",
       "iconCandidates": [
-        "https://viniciusnevesdev.github.io/crono-app/beta/../icons/maskable-512.jpg",
-        "https://viniciusnevesdev.github.io/crono-app/beta/../icons/icon-512.jpg",
-        "https://viniciusnevesdev.github.io/crono-app/beta/../icons/icon-192.png",
-        "https://viniciusnevesdev.github.io/crono-app/beta/../icons/apple-touch-icon-180.png",
-        "https://viniciusnevesdev.github.io/crono-app/beta/../icons/favicon-32.png"
+        "https://viniciusnevesdev.github.io/crono-app/icons/maskable-512.jpg",
+        "https://viniciusnevesdev.github.io/crono-app/icons/icon-512.jpg",
+        "https://viniciusnevesdev.github.io/crono-app/icons/icon-192.png",
+        "https://viniciusnevesdev.github.io/crono-app/icons/apple-touch-icon-180.png",
+        "https://viniciusnevesdev.github.io/crono-app/icons/favicon-32.png"
       ],
       "color": "#f5f5f7",
       "manifest": "beta/manifest.webmanifest"
@@ -142,10 +142,10 @@
       "name": "Áreas Beta",
       "repo": "cronometro-oficial",
       "url": "https://viniciusnevesdev.github.io/cronometro-oficial/areas-beta/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/areas-beta/../beta/app-icon-beta-512.png?v=arch-v2",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/beta/app-icon-beta-512.png?v=arch-v2",
       "iconCandidates": [
-        "https://viniciusnevesdev.github.io/cronometro-oficial/areas-beta/../beta/app-icon-beta-512.png?v=arch-v2",
-        "https://viniciusnevesdev.github.io/cronometro-oficial/areas-beta/../beta/app-icon-beta-192.png?v=arch-v2"
+        "https://viniciusnevesdev.github.io/cronometro-oficial/beta/app-icon-beta-512.png?v=arch-v2",
+        "https://viniciusnevesdev.github.io/cronometro-oficial/beta/app-icon-beta-192.png?v=arch-v2"
       ],
       "color": "#F2F2F7",
       "manifest": "areas-beta/manifest.webmanifest"
@@ -253,10 +253,10 @@
       "name": "Clientes Beta",
       "repo": "cronometro-oficial",
       "url": "https://viniciusnevesdev.github.io/cronometro-oficial/clientes-beta/",
-      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/clientes-beta/../beta/app-icon-beta-512.png?v=arch-v2",
+      "icon": "https://viniciusnevesdev.github.io/cronometro-oficial/beta/app-icon-beta-512.png?v=arch-v2",
       "iconCandidates": [
-        "https://viniciusnevesdev.github.io/cronometro-oficial/clientes-beta/../beta/app-icon-beta-512.png?v=arch-v2",
-        "https://viniciusnevesdev.github.io/cronometro-oficial/clientes-beta/../beta/app-icon-beta-192.png?v=arch-v2"
+        "https://viniciusnevesdev.github.io/cronometro-oficial/beta/app-icon-beta-512.png?v=arch-v2",
+        "https://viniciusnevesdev.github.io/cronometro-oficial/beta/app-icon-beta-192.png?v=arch-v2"
       ],
       "color": "#F2F2F7",
       "manifest": "clientes-beta/manifest.webmanifest"
@@ -310,6 +310,19 @@
       "manifest": "manifest.webmanifest"
     },
     {
+      "name": "Painel",
+      "repo": "Painel",
+      "url": "https://viniciusnevesdev.github.io/Painel/",
+      "icon": "https://viniciusnevesdev.github.io/Painel/icon-512.png",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/Painel/icon-512.png",
+        "https://viniciusnevesdev.github.io/Painel/icon-192.png",
+        "https://viniciusnevesdev.github.io/Painel/icon.svg"
+      ],
+      "color": "#10131d",
+      "manifest": "manifest.webmanifest"
+    },
+    {
       "name": "Registro",
       "repo": "Registro-mental-pwa",
       "url": "https://viniciusnevesdev.github.io/Registro-mental-pwa/",
@@ -321,7 +334,7 @@
     {
       "name": "Registro",
       "repo": "Registro-mental-v1",
-      "url": "https://viniciusnevesdev.github.io/Registro-mental-v1/launch.html?v=1.2.5",
+      "url": "https://viniciusnevesdev.github.io/Registro-mental-v1/launch.html?v=1.2.6",
       "icon": "https://viniciusnevesdev.github.io/Registro-mental-v1/icon-oficial.jpeg?v=20260915-2",
       "iconCandidates": [
         "https://viniciusnevesdev.github.io/Registro-mental-v1/icon-oficial.jpeg?v=20260915-2"
