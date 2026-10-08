@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-08T00:12:18.768Z",
+  "generatedAt": "2026-10-08T06:02:41.135Z",
   "apps": [
     {
       "name": "Ícones",
@@ -320,6 +320,15 @@
         "https://viniciusnevesdev.github.io/Painel/icon.svg"
       ],
       "color": "#10131d",
+      "manifest": "manifest.webmanifest"
+    },
+    {
+      "name": "Dev Agent",
+      "repo": "Pwa-dev-agent",
+      "url": "https://viniciusnevesdev.github.io/Pwa-dev-agent/",
+      "icon": "",
+      "iconCandidates": [],
+      "color": "#0b0d12",
       "manifest": "manifest.webmanifest"
     },
     {
