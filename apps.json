@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-09T07:23:17.010Z",
+  "generatedAt": "2026-10-09T15:18:15.039Z",
   "apps": [
     {
       "name": "Ícones",
@@ -405,6 +405,19 @@
       ],
       "color": "#0b1020",
       "manifest": "manifest.webmanifest"
+    },
+    {
+      "name": "Tô limpo?",
+      "repo": "To-limpo",
+      "url": "https://viniciusnevesdev.github.io/To-limpo/",
+      "icon": "https://viniciusnevesdev.github.io/To-limpo/icons/maskable-512.png",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/To-limpo/icons/maskable-512.png",
+        "https://viniciusnevesdev.github.io/To-limpo/icons/icon-512.png",
+        "https://viniciusnevesdev.github.io/To-limpo/icons/icon-192.png"
+      ],
+      "color": "#f5f5f7",
+      "manifest": "manifest.json"
     },
     {
       "name": "Vini UI",
