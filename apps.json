@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-17T01:18:52.419Z",
+  "generatedAt": "2026-10-17T06:56:45.790Z",
   "apps": [
     {
       "name": "Ícones",
@@ -47,6 +47,18 @@
         "https://viniciusnevesdev.github.io/Buscar-imagens/icons/icon.svg"
       ],
       "color": "#0d0f16",
+      "manifest": "manifest.webmanifest"
+    },
+    {
+      "name": "Comparador",
+      "repo": "Comparador",
+      "url": "https://viniciusnevesdev.github.io/Comparador/",
+      "icon": "https://viniciusnevesdev.github.io/Comparador/icon-512.png",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/Comparador/icon-512.png",
+        "https://viniciusnevesdev.github.io/Comparador/icon-192.png"
+      ],
+      "color": "#101124",
       "manifest": "manifest.webmanifest"
     },
     {
