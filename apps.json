@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-18T23:11:23.207Z",
+  "generatedAt": "2026-10-19T01:16:06.386Z",
   "apps": [
     {
       "name": "Ícones",
@@ -308,6 +308,15 @@
       ],
       "color": "#F2F2F6",
       "manifest": "simple/manifest.webmanifest"
+    },
+    {
+      "name": "Diário Negro",
+      "repo": "diarionegro",
+      "url": "https://viniciusnevesdev.github.io/diarionegro/",
+      "icon": "",
+      "iconCandidates": [],
+      "color": "#f7f6f2",
+      "manifest": "manifest.webmanifest"
     },
     {
       "name": "UI Builder",
