@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-22T13:47:33.300Z",
+  "generatedAt": "2026-10-22T18:32:26.007Z",
   "apps": [
     {
       "name": "Ícones",
@@ -313,8 +313,11 @@
       "name": "Diário Negro",
       "repo": "diarionegro",
       "url": "https://viniciusnevesdev.github.io/diarionegro/",
-      "icon": "",
-      "iconCandidates": [],
+      "icon": "https://viniciusnevesdev.github.io/diarionegro/icons/icon-512.png",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/diarionegro/icons/icon-512.png",
+        "https://viniciusnevesdev.github.io/diarionegro/icons/icon-192.png"
+      ],
       "color": "#f7f6f2",
       "manifest": "manifest.webmanifest"
     },
