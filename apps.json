@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-11-02T20:46:19.876Z",
+  "generatedAt": "2026-11-03T02:54:49.812Z",
   "apps": [
     {
       "name": "Ícones",
@@ -331,6 +331,18 @@
         "https://viniciusnevesdev.github.io/Html-e-css-creator/icon-180.png"
       ],
       "color": "#0b0b0d",
+      "manifest": "manifest.webmanifest"
+    },
+    {
+      "name": "iOS 27 Demo",
+      "repo": "iOS-27-UI-Demo",
+      "url": "https://viniciusnevesdev.github.io/iOS-27-UI-Demo/#glass-1",
+      "icon": "https://viniciusnevesdev.github.io/iOS-27-UI-Demo/assets/icone-512.png",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/iOS-27-UI-Demo/assets/icone-512.png",
+        "https://viniciusnevesdev.github.io/iOS-27-UI-Demo/assets/icone-192.png"
+      ],
+      "color": "#f3f5fa",
       "manifest": "manifest.webmanifest"
     },
     {
