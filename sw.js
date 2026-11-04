@@ -1,6 +1,6 @@
 'use strict';
-const CACHE = 'menu-pwas-v10';
-const ASSETS = ['index.html', 'styles.css', 'lib.js', 'app.js', 'manifest.webmanifest', 'icon.svg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png', 'apps.json'];
+const CACHE = 'menu-pwas-v11';
+const ASSETS = ['index.html', 'styles.css', 'lib.js', 'app.js', 'manifest.webmanifest', 'icon.svg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png', 'apps.json',...['list.bullet', 'plus', 'magnifyingglass', 'eye.slash', 'eye', 'pencil', 'trash', 'chevron.down', 'xmark', 'arrow.trianglehead.2.clockwise', 'square.and.arrow.up', 'square.and.arrow.down', 'square.grid.3x3'].map(n=>'assets/icons/'+n+'.svg')];
 const base = new URL('./', self.location.href);
 const ownURLs = new Set(ASSETS.map(path => new URL(path, base).href));
 self.addEventListener('install', event => event.waitUntil(

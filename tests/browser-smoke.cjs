@@ -13,7 +13,7 @@ const types = {'.html':'text/html','.js':'text/javascript','.css':'text/css','.j
 (async()=>{
   const server=http.createServer((req,res)=>{
     const name=new URL(req.url,'http://localhost').pathname.replace(/^\/Menu\//,'') || 'index.html';
-    if (!['index.html','app.js','lib.js','styles.css','apps.json','sw.js','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png','apple-touch-icon.png'].includes(name)) {res.writeHead(404);res.end();return;}
+    if (!['index.html','app.js','lib.js','styles.css','apps.json','sw.js','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png','apple-touch-icon.png'].includes(name) && !/^assets\/icons\/[a-z0-9.]+\.svg$/.test(name)) {res.writeHead(404);res.end();return;}
     res.setHeader('Content-Type',types[path.extname(name)]);res.end(fs.readFileSync(path.join(root,name)));
   });
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));

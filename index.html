@@ -6,29 +6,29 @@
 <meta name="theme-color" content="#f5f5f7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Menu">
+<meta name="apple-mobile-web-app-title" content="MenuDePWAs">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <link rel="stylesheet" href="./styles.css">
-<title>Menu</title>
+<title>MenuDePWAs</title>
 <script src="./lib.js" defer></script>
 <script src="./app.js" defer></script>
 </head>
 <body>
 <main>
-<header><button id="menu" class="round" aria-label="Abrir menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><span class="eyebrow">SEU ESPAÇO DIGITAL</span><button id="add" class="round accent" aria-label="Adicionar app"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></header>
-<div class="intro"><h1>Menu</h1><p>Seus apps, sempre à mão.</p></div>
-<label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><input id="search" type="search" placeholder="Buscar apps" aria-label="Buscar apps"></label>
+<header><button id="menu" class="round" aria-label="Abrir menu"><span class="ui-icon" data-ui-icon="list.bullet" aria-hidden="true"></span></button><span class="eyebrow">SEU ESPAÇO DIGITAL</span><button id="add" class="round accent" aria-label="Adicionar app"><span class="ui-icon" data-ui-icon="plus" aria-hidden="true"></span></button></header>
+<div class="intro"><h1>MenuDePWAs</h1><p>Seus apps, sempre à mão.</p></div>
+<label class="search"><span class="ui-icon" data-ui-icon="magnifyingglass" aria-hidden="true"></span><input id="search" type="search" placeholder="Buscar apps" aria-label="Buscar apps"></label>
 <div id="backup-banner" class="notice" hidden><span id="changes"></span><button id="backup-info" aria-label="Informações sobre backup">Sobre o backup</button></div>
-<div class="catalog-meta"><span id="status" role="status">Carregando catálogo...</span><button id="refresh">Atualizar lista</button></div>
+<div class="catalog-meta"><span id="status" role="status">Carregando catálogo...</span><button id="refresh"><span class="ui-icon" data-ui-icon="arrow.trianglehead.2.clockwise" aria-hidden="true"></span>Atualizar lista</button></div>
 <section id="apps" aria-label="Aplicativos"></section>
 <details id="unpublished"><summary>Sem publicação</summary><div id="repos"></div></details>
 <footer>Do seu jeito. Salvo neste dispositivo.</footer>
 <details id="hidden"><summary>Ocultos</summary><div id="hidden-apps"></div></details>
 <noscript>Ative o JavaScript para usar o catálogo e seus apps locais.</noscript>
 </main>
-<dialog id="drawer" class="drawer"><div class="dialog-head"><h2>Seu Menu</h2><button data-close aria-label="Fechar menu">Fechar</button></div><p>Apps e preferências ficam neste navegador.</p><p class="small">O botão de menos oculta um app. Restaure em Ocultos, no fim da lista.</p><label>Aparência<select id="theme"><option value="system">Sistema</option><option value="light">Clara</option><option value="dark">Escura</option></select></label><hr><button id="export">Exportar backup JSON</button><button id="import">Importar backup JSON</button><input id="file" type="file" accept="application/json,.json" hidden><p id="last-export" class="small"></p><p id="last-backup" class="small"></p><p id="drawer-message" class="small" role="status"></p><p class="small">O navegador abre a folha de compartilhamento ou inicia o download. Confirme o arquivo em Arquivos. Limpar dados do Safari pode apagar seus ajustes.</p></dialog>
+<dialog id="drawer" class="drawer"><div class="dialog-head"><h2>MenuDePWAs</h2><button data-close aria-label="Fechar menu">Fechar</button></div><p>Apps e preferências ficam neste navegador.</p><p class="small">Use o olho riscado para ocultar e o olho aberto para reexibir em Ocultos.</p><label>Aparência<select id="theme"><option value="system">Sistema</option><option value="light">Clara</option><option value="dark">Escura</option></select></label><hr><button id="export">Exportar backup JSON</button><button id="import">Importar backup JSON</button><input id="file" type="file" accept="application/json,.json" hidden><p id="last-export" class="small"></p><p id="last-backup" class="small"></p><p id="drawer-message" class="small" role="status"></p><p class="small">O navegador abre a folha de compartilhamento ou inicia o download. Confirme o arquivo em Arquivos. Limpar dados do Safari pode apagar seus ajustes.</p></dialog>
 <dialog id="editor"><form id="app-form"><div class="dialog-head"><h2 id="editor-title">Adicionar app</h2><button type="button" data-close>Fechar</button></div><label>Nome do app<input name="name" required maxlength="180" autocomplete="off"></label><label>URL do app<input name="url" type="url" required placeholder="https://" inputmode="url"></label><details><summary>Opções avançadas</summary><label>Repositório ou grupo<input name="repo" maxlength="180"></label><label>URL do ícone<input name="icon" type="url" placeholder="https://" inputmode="url"></label></details><p id="form-error" class="error" role="alert"></p><button type="submit" class="accent wide">Salvar app</button></form></dialog>
 <dialog id="import-preview"><div class="dialog-head"><h2>Importar backup</h2><button data-close>Cancelar</button></div><p id="preview-count"></p><label>Como importar<select id="import-mode"><option value="merge">Mesclar com meus dados</option><option value="replace">Substituir meus dados locais</option></select></label><p id="preview-effect" class="small"></p><button id="confirm-import" class="accent wide">Confirmar importação</button></dialog>
 <dialog id="confirm-dialog"><h2>Excluir app?</h2><p id="delete-name"></p><p>Esta exclusão é permanente neste dispositivo.</p><div class="actions"><button data-close>Cancelar</button><button id="confirm-delete" class="danger">Excluir app</button></div></dialog>

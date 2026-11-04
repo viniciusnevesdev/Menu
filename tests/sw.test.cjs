@@ -5,7 +5,7 @@ function worker(fetchImpl=async()=>new Response('network')) {
   vm.runInNewContext(fs.readFileSync('sw.js','utf8'),{self,caches:{open:async()=>cache,keys:async()=>['other-app-v1','menu-pwas-v8','menu-pwas-v10','unrelated'],delete:async k=>deleted.push(k)},URL,Response,Headers,fetch:fetchImpl});
   return {handlers,deleted,stored};
 }
-test('activation only deletes owned obsolete cache prefix',async()=>{const w=worker();let p;w.handlers.activate({waitUntil:v=>p=v});await p;assert.deepEqual(w.deleted,['menu-pwas-v8']);});
+test('activation only deletes owned obsolete cache prefix',async()=>{const w=worker();let p;w.handlers.activate({waitUntil:v=>p=v});await p;assert.deepEqual(w.deleted,['menu-pwas-v8','menu-pwas-v10']);});
 test('own offline navigation/catalog fallback; other apps and external URLs untouched',async()=>{
   const w=worker(async()=>{throw Error('offline')});w.stored.set('https://test.local/Menu/index.html',new Response('shell'));w.stored.set('https://test.local/Menu/apps.json',new Response('{"apps":[]}'));
   for(const [url,mode,expected] of [['https://test.local/Menu/','navigate','shell'],['https://test.local/Menu/apps.json','cors','{"apps":[]}']]) {let p;w.handlers.fetch({request:{method:'GET',url,mode},respondWith:v=>p=v});const r=await p;assert.equal(await r.text(),expected);assert.equal(r.headers.get('X-Menu-Offline'),'1');}

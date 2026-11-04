@@ -20,23 +20,30 @@ function save(next) {
 function change(patch) { save(L.mutate(state, patch)); }
 const date = value => { const d = new Date(value); return Number.isFinite(d.getTime()) ? d.toLocaleString('pt-BR', {dateStyle: 'short', timeStyle: 'short'}) : 'Data indisponível'; };
 function element(tag, className, text) { const e = document.createElement(tag); if (className) e.className = className; if (text !== undefined) e.textContent = text; return e; }
-function button(label, action, icon) {
-  const b = element('button', '', icon ? '' : label); b.type = 'button'; b.setAttribute('aria-label', label); b.title = label;
-  if (icon) {
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('aria-hidden', 'true');
-    const p = document.createElementNS(svg.namespaceURI, 'path'); p.setAttribute('d', icon); svg.append(p); b.append(svg);
-  }
+const ALLOWED_UI_ICONS = new Set(['list.bullet','plus','magnifyingglass','eye.slash','eye','pencil','trash','chevron.down','xmark','arrow.trianglehead.2.clockwise','square.and.arrow.up','square.and.arrow.down','square.grid.3x3']);
+function uiIcon(name) {
+  if (!ALLOWED_UI_ICONS.has(name)) throw Error('Ícone fora da biblioteca oficial');
+  const el = element('span','ui-icon'); el.dataset.uiIcon = name; el.setAttribute('aria-hidden','true');
+  return el;
+}
+function button(label, action, iconName) {
+  const b = element('button', '', iconName ? '' : label);
+  b.type = 'button'; b.setAttribute('aria-label', label); b.title = label;
+  if (iconName) b.append(uiIcon(iconName));
   b.onclick = action; return b;
+}
+function setSummary(summary, caption) {
+  summary.replaceChildren(uiIcon('chevron.down'), document.createTextNode(caption));
 }
 function allApps() { return [...catalog.apps, ...state.manual]; }
 function icon(app) {
-  const wrap = element('span', 'icon', (app.name.trim()[0] || '?').toUpperCase()); wrap.setAttribute('aria-hidden', 'true');
+  const wrap = element('span', 'icon'); wrap.setAttribute('aria-hidden', 'true'); wrap.append(uiIcon('square.grid.3x3'));
   const base = new URL(app.url), site = new URL('./', base);
   const candidates = [...new Set([...(app.iconCandidates || []), app.icon, new URL('apple-touch-icon.png', site).href, new URL('/apple-touch-icon.png', base).href, new URL('/favicon.ico', base).href].filter(Boolean))].filter(value => { try { L.url(value); return true; } catch { return false; } });
   if (candidates.length) {
     const img = document.createElement('img'); img.alt = ''; img.loading = 'lazy'; img.referrerPolicy = 'no-referrer'; let i = 0;
-    img.onload = () => img.classList.add('loaded');
-    img.onerror = () => { img.classList.remove('loaded'); i++; if (i < candidates.length) img.src = candidates[i]; else img.remove(); }; img.src = candidates[0]; wrap.append(img);
+    img.onload = () => { img.classList.add('loaded'); wrap.classList.add('has-image'); };
+    img.onerror = () => { img.classList.remove('loaded'); wrap.classList.remove('has-image'); i++; if (i < candidates.length) img.src = candidates[i]; else img.remove(); }; img.src = candidates[0]; wrap.append(img);
   }
   return wrap;
 }
@@ -46,9 +53,9 @@ function row(app, hidden = false) {
   const label = element('span', 'app-label'); label.append(element('span', 'app-name', app.name));
   label.append(element('span', 'app-sub', L.variant(app) ? app.manifest.replace(/\/?[^/]+$/, '') : new URL(app.url).hostname)); link.append(icon(app), label);
   const tools = element('div', 'row-tools');
-  if (manual) tools.append(button('Editar ' + app.name, () => openEditor(app), 'm4 16-1 5 5-1L21 7l-5-5Z M14 4l6 6'));
-  tools.append(button((hidden ? 'Mostrar ' : 'Ocultar ') + app.name, () => change({hiddenIds: hidden ? state.hiddenIds.filter(x => x !== id) : [...new Set([...state.hiddenIds, id])]}), hidden ? 'M12 5v14M5 12h14' : 'M5 12h14'));
-  if (manual) tools.append(button('Excluir ' + app.name, () => { deleting = app.id; $('#delete-name').textContent = app.name; $('#confirm-dialog').showModal(); }, 'M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13'));
+  if (manual) tools.append(button('Editar ' + app.name, () => openEditor(app), 'pencil'));
+  tools.append(button((hidden ? 'Mostrar ' : 'Ocultar ') + app.name, () => change({hiddenIds: hidden ? state.hiddenIds.filter(x => x !== id) : [...new Set([...state.hiddenIds, id])]}), hidden ? 'eye' : 'eye.slash'));
+  if (manual) tools.append(button('Excluir ' + app.name, () => { deleting = app.id; $('#delete-name').textContent = app.name; $('#confirm-dialog').showModal(); }, 'trash'));
   row.append(link, tools); return row;
 }
 function render() {
@@ -65,18 +72,18 @@ function render() {
     const section = element('section', 'group'); section.append(element('h3', '', group.name));
     const list = element('div', 'group-list'); group.primary.forEach(app => list.append(row(app))); section.append(list);
     if (group.variants.length) {
-      const details = element('details'); details.append(element('summary', '', `Versões e testes (${group.variants.length})`));
+      const details = element('details'), summary = element('summary'); setSummary(summary, `Versões e testes (${group.variants.length})`); details.append(summary);
       group.variants.forEach(app => details.append(row(app))); section.append(details);
     }
     container.append(section);
   }
   if (!container.childElementCount) container.append(element('p', 'empty', 'Nenhum app visível. Adicione um app ou consulte os ocultos.'));
   const hidden = apps.filter(a => state.hiddenIds.includes(L.identity(a))); $('#hidden-apps').replaceChildren(...hidden.map(a => row(a, true)));
-  $('#hidden summary').textContent = `Ocultos (${hidden.length})`;
+  setSummary($('#hidden summary'), `Ocultos (${hidden.length})`);
   const published = new Set(catalog.apps.map(a => a.repo));
   const repos = catalog.repositories.filter(r => !published.has(r.name) && r.name.toLowerCase().includes(query));
   $('#repos').replaceChildren(...repos.map(r => { const a = element('a', '', r.name); a.href = L.url(r.url || 'https://github.com/viniciusnevesdev/' + encodeURIComponent(r.name)); a.target = '_blank'; a.rel = 'noopener noreferrer'; return a; }));
-  $('#unpublished').hidden = !repos.length; $('#unpublished summary').textContent = `Sem publicação (${repos.length})`;
+  $('#unpublished').hidden = !repos.length; setSummary($('#unpublished summary'), `Sem publicação (${repos.length})`);
 }
 function openEditor(app) {
   editing = app?.id || null; $('#app-form').reset(); $('#form-error').textContent = '';
@@ -86,6 +93,7 @@ function openEditor(app) {
 $('#add').onclick = () => openEditor(); $('#menu').onclick = () => { $('#drawer-message').textContent = ''; $('#drawer').showModal(); };
 document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => b.closest('dialog').close());
 $('#search').oninput = render;
+setSummary($('#editor summary'), 'Opções avançadas');
 $('#theme').onchange = e => { if (e.target.value !== state.settings.theme) change({settings: {theme: e.target.value}}); };
 $('#backup-info').onclick = () => { $('#drawer').showModal(); };
 $('#app-form').onsubmit = e => {
