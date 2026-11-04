@@ -1,219 +1,36 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0d0f14">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Menu">
-  <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="apple-touch-icon" href="./icon.svg">
-  <link rel="icon" href="./icon.svg" type="image/svg+xml">
-  <title>Menu</title>
-  <style>
-    :root { color-scheme: dark; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; background:#0d0f14; color:#f7f7fb; }
-    * { box-sizing:border-box; } body { margin:0; min-height:100vh; background:radial-gradient(circle at 50% -18%,#2e3550 0,#151923 38%,#0d0f14 70%); }
-    main { width:min(760px,100%); margin:0 auto; padding:calc(28px + env(safe-area-inset-top)) 20px calc(42px + env(safe-area-inset-bottom)); }
-    header { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:24px; } h1 { margin:0; font-size:34px; letter-spacing:-1.2px; } p { margin:7px 0 0; color:#aeb5c4; line-height:1.45; font-size:15px; }
-    button { appearance:none; border:0; border-radius:14px; padding:11px 13px; background:#252b3a; color:#fff; font:600 14px inherit; white-space:nowrap; } button:active { transform:scale(.97); background:#343c50; }
-    #status { margin:0 0 16px; min-height:21px; font-size:13px; color:#aeb5c4; }
-    #apps { display:block; }
-    .repo-group + .repo-group { margin-top:28px; }
-    .group-title { margin:0 0 10px; padding:0 3px; font-size:14px; font-weight:750; letter-spacing:.1px; color:#dbe1ef; }
-    .group-apps { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-    .app { display:flex; align-items:center; gap:13px; min-height:86px; padding:13px; border-radius:20px; text-decoration:none; color:inherit; background:rgba(35,40,53,.78); border:1px solid rgba(255,255,255,.07); box-shadow:0 8px 28px rgba(0,0,0,.12); }
-    .app:active { transform:scale(.98); background:#30384a; }
-    .icon { width:54px; height:54px; flex:0 0 54px; border-radius:14px; background:#252b3a; }
-    .icon-wrap { position:relative; display:grid; place-items:center; overflow:hidden; font-weight:800; font-size:22px; color:white; background:var(--color,#596277); }
-    .app-icon { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .16s ease; }
-    .app-icon.loaded { opacity:1; }
-    .name { font-size:15px; font-weight:700; line-height:1.17; overflow-wrap:anywhere; } .repo { display:none; }
-    .empty { padding:22px; border-radius:18px; color:#aeb5c4; background:#1b202b; line-height:1.45; } footer { margin-top:24px; font-size:12px; color:#80899b; text-align:center; }
-    @media (min-width:620px) { .group-apps { grid-template-columns:repeat(3,minmax(0,1fr)); } .app { flex-direction:column; align-items:flex-start; min-height:145px; } }
-  </style>
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./sw.js?v=8", { updateViaCache: "none" })
-        .then(registration => registration.update())
-        .catch(() => {});
-    }
-  </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Menu">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="stylesheet" href="./styles.css">
+<title>Menu</title>
+<script src="./lib.js" defer></script>
+<script src="./app.js" defer></script>
 </head>
 <body>
-  <main>
-    <header><div><h1>Menu</h1><p>Seus apps publicados no GitHub</p></div><button id="refresh" type="button">Atualizar</button></header>
-    <div id="status" role="status">Procurando seus PWAs…</div>
-    <section id="apps" aria-label="Aplicativos"></section>
-    <footer>Atualiza automaticamente ao abrir.</footer>
-  </main>
-  <script>
-    const USER = "viniciusnevesdev";
-    const appsEl = document.querySelector("#apps");
-    const statusEl = document.querySelector("#status");
-    const refreshButton = document.querySelector("#refresh");
-    let savedCatalog = { apps: [], failures: [] };
-
-    const escaped = value => String(value).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
-    const api = path => fetch("https://api.github.com" + path, { cache: "no-store" }).then(async response => {
-      if (!response.ok) throw new Error(String(response.status));
-      return response.json();
-    });
-    const pagesBase = repo => "https://" + USER + ".github.io/" + encodeURIComponent(repo) + "/";
-    const manifestBase = (repo, path) => pagesBase(repo) + (path.includes("/") ? path.split("/").slice(0, -1).map(encodeURIComponent).join("/") + "/" : "");
-    const validManifest = manifest => ["standalone", "minimal-ui", "fullscreen"].includes(manifest.display) && (manifest.name || manifest.short_name);
-    const iconVersion = (url, version) => {
-      const parsed = new URL(url);
-      parsed.searchParams.set("menu_icon", version);
-      return parsed.href;
-    };
-
-    function fallbackColor(color) {
-      const hex = String(color || "").match(/^#([\da-f]{3}|[\da-f]{6})$/i)?.[1];
-      if (!hex) return "#596277";
-      const value = hex.length === 3 ? hex.split("").map(char => char + char).join("") : hex;
-      const [r, g, b] = [0, 2, 4].map(index => parseInt(value.slice(index, index + 2), 16));
-      return (r * 0.299 + g * 0.587 + b * 0.114) > 160 ? "#596277" : color;
-    }
-
-    function iconCandidates(manifest, base) {
-      return (Array.isArray(manifest.icons) ? manifest.icons : [])
-        .filter(icon => icon && icon.src)
-        .slice()
-        .sort((a, b) => {
-          const score = icon => (/512/.test(icon.sizes || "") ? 4 : 0) + (/192/.test(icon.sizes || "") ? 3 : 0) + (/180/.test(icon.sizes || "") ? 2 : 0) + (/maskable/.test(icon.purpose || "") ? 1 : 0);
-          return score(b) - score(a);
-        })
-        .map(icon => new URL(icon.src, base).href)
-        .filter((url, index, all) => all.indexOf(url) === index);
-    }
-
-    async function listRepositories() {
-      const repos = [];
-      for (let page = 1; ; page += 1) {
-        const batch = await api("/users/" + USER + "/repos?type=owner&per_page=100&page=" + page);
-        repos.push(...batch);
-        if (batch.length < 100) return repos;
-      }
-    }
-
-    async function discoverLive() {
-      const repos = (await listRepositories()).filter(repo => repo.has_pages && !repo.archived && repo.name !== "Menu");
-      const failures = [];
-      const found = await Promise.all(repos.map(async repo => {
-        try {
-          const tree = await api("/repos/" + USER + "/" + encodeURIComponent(repo.name) + "/git/trees/" + encodeURIComponent(repo.default_branch) + "?recursive=1");
-          const manifests = (tree.tree || []).filter(file => file.type === "blob" && /^(manifest\.(webmanifest|json)|site\.webmanifest)$/i.test(file.path.split("/").pop()));
-          const apps = await Promise.all(manifests.map(async file => {
-            try {
-              const rawUrl = "https://raw.githubusercontent.com/" + USER + "/" + encodeURIComponent(repo.name) + "/" + encodeURIComponent(repo.default_branch) + "/" + file.path.split("/").map(encodeURIComponent).join("/");
-              const response = await fetch(rawUrl, { cache: "no-store" });
-              if (!response.ok) throw new Error(String(response.status));
-              const manifest = await response.json();
-              if (!validManifest(manifest)) return null;
-              const base = manifestBase(repo.name, file.path);
-              const icons = iconCandidates(manifest, base);
-              return {
-                name: manifest.short_name || manifest.name,
-                repo: repo.name,
-                url: new URL(manifest.start_url || "./", base).href,
-                icon: icons[0] || "",
-                iconCandidates: icons,
-                color: manifest.theme_color || "#596277",
-                manifest: file.path
-              };
-            } catch (error) {
-              failures.push({ repo: repo.name, manifest: file.path, reason: String(error.message || error) });
-              return null;
-            }
-          }));
-          return apps.filter(Boolean);
-        } catch (error) {
-          failures.push({ repo: repo.name, stage: "tree", reason: String(error.message || error) });
-          return [];
-        }
-      }));
-      return { apps: found.flat().sort((a, b) => a.repo.localeCompare(b.repo, "pt-BR") || a.name.localeCompare(b.name, "pt-BR")), failures };
-    }
-
-    function show(apps) {
-      if (!apps.length) {
-        appsEl.innerHTML = '<div class="empty">Nenhum PWA publicado foi encontrado.</div>';
-        return;
-      }
-      const groups = new Map();
-      apps.forEach(app => {
-        if (!groups.has(app.repo)) groups.set(app.repo, []);
-        groups.get(app.repo).push(app);
-      });
-      const version = Date.now();
-      appsEl.innerHTML = [...groups.entries()].sort(([a], [b]) => a.localeCompare(b, "pt-BR")).map(([repo, group]) =>
-        '<section class="repo-group" aria-label="Aplicativos do repositório ' + escaped(repo) + '">' +
-          '<h2 class="group-title">' + escaped(repo) + '</h2>' +
-          '<div class="group-apps">' + group.map(app => {
-            const letter = app.name.trim().slice(0, 1).toUpperCase() || "?";
-            const candidates = [...new Set([...(Array.isArray(app.iconCandidates) ? app.iconCandidates : []), app.icon].filter(Boolean))];
-            const image = candidates.length ? '<img class="app-icon" src="' + escaped(iconVersion(candidates[0], version)) + '" alt="" data-icon-image data-icon-candidates="' + escaped(JSON.stringify(candidates)) + '">' : "";
-            return '<a class="app" href="' + escaped(app.url) + '">' +
-              '<span class="icon icon-wrap" style="--color:' + escaped(fallbackColor(app.color)) + '" aria-hidden="true"><span>' + escaped(letter) + '</span>' + image + '</span>' +
-              '<span class="name">' + escaped(app.name) + '</span></a>';
-          }).join("") + '</div></section>'
-      ).join("");
-
-      appsEl.querySelectorAll("img[data-icon-image]").forEach(image => {
-        let candidates = [];
-        try { candidates = JSON.parse(image.dataset.iconCandidates || "[]"); } catch { candidates = []; }
-        let position = 0;
-        const reveal = () => image.classList.add("loaded");
-        if (image.complete && image.naturalWidth) reveal();
-        else image.addEventListener("load", reveal, { once: true });
-        image.addEventListener("error", () => {
-          position += 1;
-          if (position < candidates.length) image.src = iconVersion(candidates[position], Date.now());
-          else image.remove();
-        });
-      });
-    }
-
-    async function loadSavedCatalog() {
-      const response = await fetch("./apps.json?v=" + Date.now(), { cache: "no-store" });
-      if (!response.ok) throw new Error(String(response.status));
-      const catalog = await response.json();
-      savedCatalog = {
-        apps: Array.isArray(catalog.apps) ? catalog.apps : [],
-        failures: Array.isArray(catalog.failures) ? catalog.failures : []
-      };
-      show(savedCatalog.apps);
-      statusEl.textContent = savedCatalog.apps.length + (savedCatalog.apps.length === 1 ? " PWA encontrado" : " PWAs encontrados");
-    }
-
-    async function refreshNow() {
-      refreshButton.disabled = true;
-      statusEl.textContent = "Verificando seus PWAs no GitHub…";
-      try {
-        const live = await discoverLive();
-        if (live.apps.length) {
-          show(live.apps);
-          statusEl.textContent = live.apps.length + (live.apps.length === 1 ? " PWA encontrado" : " PWAs encontrados") +
-            (live.failures.length ? " • " + live.failures.length + " item(ns) para revisar" : "");
-        } else {
-          show(savedCatalog.apps);
-          statusEl.textContent = "A verificação falhou; exibindo o último catálogo salvo.";
-        }
-      } catch {
-        show(savedCatalog.apps);
-        statusEl.textContent = "Não foi possível verificar agora; exibindo o último catálogo salvo.";
-      } finally {
-        refreshButton.disabled = false;
-      }
-    }
-
-    refreshButton.addEventListener("click", refreshNow);
-    loadSavedCatalog().catch(() => {
-      appsEl.innerHTML = '<div class="empty">Não foi possível carregar o catálogo agora. Toque em Atualizar para tentar novamente.</div>';
-      statusEl.textContent = "Catálogo indisponível";
-    });
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=8", { updateViaCache: "none" }).catch(() => {});
-  </script>
-</body>
-</html>
+<main>
+<header><button id="menu" class="round" aria-label="Abrir menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><span class="eyebrow">SEU ESPAÇO DIGITAL</span><button id="add" class="round accent" aria-label="Adicionar app"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></header>
+<div class="intro"><h1>Menu</h1><p>Seus apps, sempre à mão.</p></div>
+<label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><input id="search" type="search" placeholder="Buscar apps" aria-label="Buscar apps"></label>
+<div id="backup-banner" class="notice" hidden><span id="changes"></span><button id="backup-info" aria-label="Informações sobre backup">Sobre o backup</button></div>
+<div class="catalog-meta"><span id="status" role="status">Carregando catálogo...</span><button id="refresh">Atualizar lista</button></div>
+<section id="apps" aria-label="Aplicativos"></section>
+<details id="unpublished"><summary>Sem publicação</summary><div id="repos"></div></details>
+<footer>Do seu jeito. Salvo neste dispositivo.</footer>
+<details id="hidden"><summary>Ocultos</summary><div id="hidden-apps"></div></details>
+<noscript>Ative o JavaScript para usar o catálogo e seus apps locais.</noscript>
+</main>
+<dialog id="drawer" class="drawer"><div class="dialog-head"><h2>Seu Menu</h2><button data-close aria-label="Fechar menu">Fechar</button></div><p>Apps e preferências ficam neste navegador.</p><p class="small">O botão de menos oculta um app. Restaure em Ocultos, no fim da lista.</p><label>Aparência<select id="theme"><option value="system">Sistema</option><option value="light">Clara</option><option value="dark">Escura</option></select></label><hr><button id="export">Exportar backup JSON</button><button id="import">Importar backup JSON</button><input id="file" type="file" accept="application/json,.json" hidden><p id="last-export" class="small"></p><p id="last-backup" class="small"></p><p id="drawer-message" class="small" role="status"></p><p class="small">O navegador abre a folha de compartilhamento ou inicia o download. Confirme o arquivo em Arquivos. Limpar dados do Safari pode apagar seus ajustes.</p></dialog>
+<dialog id="editor"><form id="app-form"><div class="dialog-head"><h2 id="editor-title">Adicionar app</h2><button type="button" data-close>Fechar</button></div><label>Nome do app<input name="name" required maxlength="180" autocomplete="off"></label><label>URL do app<input name="url" type="url" required placeholder="https://" inputmode="url"></label><details><summary>Opções avançadas</summary><label>Repositório ou grupo<input name="repo" maxlength="180"></label><label>URL do ícone<input name="icon" type="url" placeholder="https://" inputmode="url"></label></details><p id="form-error" class="error" role="alert"></p><button type="submit" class="accent wide">Salvar app</button></form></dialog>
+<dialog id="import-preview"><div class="dialog-head"><h2>Importar backup</h2><button data-close>Cancelar</button></div><p id="preview-count"></p><label>Como importar<select id="import-mode"><option value="merge">Mesclar com meus dados</option><option value="replace">Substituir meus dados locais</option></select></label><p id="preview-effect" class="small"></p><button id="confirm-import" class="accent wide">Confirmar importação</button></dialog>
+<dialog id="confirm-dialog"><h2>Excluir app?</h2><p id="delete-name"></p><p>Esta exclusão é permanente neste dispositivo.</p><div class="actions"><button data-close>Cancelar</button><button id="confirm-delete" class="danger">Excluir app</button></div></dialog>
+<p id="message" class="toast" role="status" hidden></p>
+</body></html>

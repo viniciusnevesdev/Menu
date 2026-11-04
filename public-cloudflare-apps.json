@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "description": "Registro opt-in de apps públicos aprovados. Nunca incluir projetos privados ou URLs secretas.",
+  "apps": [
+    {"name": "Bibliopromptos", "repo": "bibliopromptos", "url": "https://bibliopromptos.pages.dev/", "source": "cloudflare"}
+  ]
+}
