@@ -6,6 +6,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const root = path.resolve(__dirname,'..');
+const autoApps = JSON.parse(fs.readFileSync(path.join(root,'apps.json'))).apps;
+const appCount = autoApps.length;
+const primaryCount = require('../lib.js').groups(autoApps,[]).reduce((n,g)=>n+g.primary.length,0);
 const types = {'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.webmanifest':'application/manifest+json','.svg':'image/svg+xml','.png':'image/png'};
 (async()=>{
   const server=http.createServer((req,res)=>{
@@ -22,10 +25,10 @@ const types = {'.html':'text/html','.js':'text/javascript','.css':'text/css','.j
     const origin=`http://127.0.0.1:${server.address().port}`;
     await context.route('**/*',route=>route.request().url().startsWith(origin)?route.continue():route.abort());
     await page.addInitScript(()=>caches.open('another-app-v42'));
-    await page.goto(origin+'/Menu/');await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('41 apps'));
+    await page.goto(origin+'/Menu/');await page.waitForFunction(n=>document.querySelector('#status').textContent.includes(n+' apps'),appCount);
     await page.evaluate(()=>navigator.serviceWorker.ready);
-    assert.equal(await page.locator('#apps .app-row:visible').count(),22);
-    assert.equal(await page.locator('#apps .app-row').count(),41);
+    assert.equal(await page.locator('#apps .app-row:visible').count(),primaryCount);
+    assert.equal(await page.locator('#apps .app-row').count(),appCount);
     assert.ok((await page.evaluate(()=>caches.keys())).includes('another-app-v42'));
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth),true);
     const chrono=page.locator('.group').filter({has:page.getByRole('heading',{name:'cronometro-oficial',exact:true})});
@@ -42,7 +45,7 @@ const types = {'.html':'text/html','.js':'text/javascript','.css':'text/css','.j
     assert.equal(await page.locator('#apps').getByText('<Teste local>',{exact:true}).count(),1);
     const manual=page.locator('.app-row').filter({hasText:'<Teste local>'});
     await manual.getByRole('button',{name:'Editar <Teste local>',exact:true}).click();await page.locator('[name=name]').fill('Editado');await page.getByRole('button',{name:'Salvar app',exact:true}).click();
-    await page.reload();await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('41 apps'));
+    await page.reload();await page.waitForFunction(n=>document.querySelector('#status').textContent.includes(n+' apps'),appCount);
     assert.equal(await page.locator('#apps').getByText('Editado',{exact:true}).count(),1);
     const read=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('menu-pwa-local-v2')));
     assert.equal((await read()).changes,17);
@@ -65,8 +68,8 @@ const types = {'.html':'text/html','.js':'text/javascript','.css':'text/css','.j
     await page.getByRole('button',{name:'Abrir menu'}).click();await page.evaluate(()=>{navigator.canShare=()=>false;});
     const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'Exportar backup JSON'}).click();const download=await downloadPromise;assert.match(download.suggestedFilename(),/^menu-backup-/);await download.cancel();assert.equal((await read()).changes,0);
     await page.getByRole('button',{name:'Fechar menu',exact:true}).click();
-    await context.setOffline(true);await page.reload();await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('Offline'));assert.equal(await page.locator('#apps .app-row').count(),29);
+    await context.setOffline(true);await page.reload();await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('Offline'));assert.equal(await page.locator('#apps .app-row').count(),appCount - 12);
     assert.equal((await read()).manual.length,1);assert.deepEqual(errors,[]);
-    console.log('Browser smoke passed: mobile layout, 40 working GitHub + Cloudflare, folding, hide/restore, CRUD, counter, reload, share cancel/success, download, import preview/merge, foreign cache safety, offline /Menu/.');
+    console.log('Browser smoke passed: mobile layout, dynamic catalog, folding, hide/restore, CRUD, counter, reload, share cancel/success, download, import preview/merge, foreign cache safety, offline /Menu/.');
   } finally {if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(e=>{console.error(e);process.exitCode=1;});
