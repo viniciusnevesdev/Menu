@@ -1,5 +1,5 @@
 {
-  "schema": 1,
+  "schema": 2,
   "generatedAt": "2026-11-04T15:25:51.390Z",
   "apps": [
     {
@@ -96,17 +96,6 @@
       ],
       "color": "#f6f7f4",
       "manifest": "manifest.webmanifest"
-    },
-    {
-      "name": "Meu Dinheiro",
-      "repo": "Controle-financeiro",
-      "url": "https://viniciusnevesdev.github.io/Controle-financeiro/source/public/",
-      "icon": "https://viniciusnevesdev.github.io/Controle-financeiro/source/public/apple-touch-icon.png",
-      "iconCandidates": [
-        "https://viniciusnevesdev.github.io/Controle-financeiro/source/public/apple-touch-icon.png"
-      ],
-      "color": "#f6f7f4",
-      "manifest": "source/public/manifest.webmanifest"
     },
     {
       "name": "Crono",
@@ -477,7 +466,115 @@
       ],
       "color": "#f5f5f7",
       "manifest": "manifest.webmanifest"
+    },
+    {
+      "name": "Bibliopromptos",
+      "repo": "bibliopromptos",
+      "url": "https://bibliopromptos.pages.dev/",
+      "source": "cloudflare"
     }
   ],
-  "failures": []
+  "failures": [],
+  "repositories": [
+    {
+      "name": "Alimentacao",
+      "url": "https://github.com/viniciusnevesdev/Alimentacao",
+      "hasPages": true
+    },
+    {
+      "name": "Buscar-imagens",
+      "url": "https://github.com/viniciusnevesdev/Buscar-imagens",
+      "hasPages": true
+    },
+    {
+      "name": "comandos",
+      "url": "https://github.com/viniciusnevesdev/comandos",
+      "hasPages": true
+    },
+    {
+      "name": "Comparador",
+      "url": "https://github.com/viniciusnevesdev/Comparador",
+      "hasPages": true
+    },
+    {
+      "name": "Controle-financeiro",
+      "url": "https://github.com/viniciusnevesdev/Controle-financeiro",
+      "hasPages": true
+    },
+    {
+      "name": "crono-app",
+      "url": "https://github.com/viniciusnevesdev/crono-app",
+      "hasPages": true
+    },
+    {
+      "name": "cronometro-app",
+      "url": "https://github.com/viniciusnevesdev/cronometro-app",
+      "hasPages": true
+    },
+    {
+      "name": "cronometro-oficial",
+      "url": "https://github.com/viniciusnevesdev/cronometro-oficial",
+      "hasPages": true
+    },
+    {
+      "name": "diarionegro",
+      "url": "https://github.com/viniciusnevesdev/diarionegro",
+      "hasPages": true
+    },
+    {
+      "name": "Html-e-css-creator",
+      "url": "https://github.com/viniciusnevesdev/Html-e-css-creator",
+      "hasPages": true
+    },
+    {
+      "name": "iOS-27-UI-Demo",
+      "url": "https://github.com/viniciusnevesdev/iOS-27-UI-Demo",
+      "hasPages": true
+    },
+    {
+      "name": "Painel",
+      "url": "https://github.com/viniciusnevesdev/Painel",
+      "hasPages": true
+    },
+    {
+      "name": "Pwa-dev-agent",
+      "url": "https://github.com/viniciusnevesdev/Pwa-dev-agent",
+      "hasPages": true
+    },
+    {
+      "name": "Registro-mental-pwa",
+      "url": "https://github.com/viniciusnevesdev/Registro-mental-pwa",
+      "hasPages": true
+    },
+    {
+      "name": "Registro-mental-v1",
+      "url": "https://github.com/viniciusnevesdev/Registro-mental-v1",
+      "hasPages": true
+    },
+    {
+      "name": "seletor-fotos-unhas",
+      "url": "https://github.com/viniciusnevesdev/seletor-fotos-unhas",
+      "hasPages": true
+    },
+    {
+      "name": "Simbolos",
+      "url": "https://github.com/viniciusnevesdev/Simbolos",
+      "hasPages": true
+    },
+    {
+      "name": "supertext",
+      "url": "https://github.com/viniciusnevesdev/supertext",
+      "hasPages": true
+    },
+    {
+      "name": "To-limpo",
+      "url": "https://github.com/viniciusnevesdev/To-limpo",
+      "hasPages": true
+    },
+    {
+      "name": "Vini-ui",
+      "url": "https://github.com/viniciusnevesdev/Vini-ui",
+      "hasPages": true
+    }
+  ]
 }

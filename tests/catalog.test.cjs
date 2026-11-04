@@ -1,0 +1,10 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');const fs=require('node:fs');const vm=require('node:vm');const L=require('../lib.js');
+test('hourly generator lists public unpublished repos, retains transient failures, excludes private names and secrets, and deduplicates registry',async()=>{
+  let output;const previous={apps:[{name:'Old',repo:'public-failed',manifest:'manifest.json',url:'https://owner.github.io/public-failed/'},{name:'Private',repo:'private-project',manifest:'manifest.json',url:'https://private.test/'}]};
+  const registry={apps:[{name:'Bibliopromptos',repo:'bibliopromptos',url:'https://bibliopromptos.pages.dev/'},{name:'Do not expose',repo:'private-project',url:'https://secret-project.pages.dev/'}]};
+  const module={exports:{}};vm.runInNewContext(fs.readFileSync('scripts/build-catalog.cjs','utf8'),{module,require:name=>name==='node:fs'?{readFileSync:file=>JSON.stringify(file==='apps.json'?previous:registry),writeFileSync:(_,value)=>output=JSON.parse(value)}:L,URL,Buffer,Set,Date});
+  const repos=[{name:'public-failed',has_pages:true},{name:'public-app',has_pages:true},{name:'unpublished',has_pages:false},{name:'bibliopromptos',has_pages:false},{name:'private-project',private:true,has_pages:true},{name:'Menu',has_pages:true}];
+  const github={rest:{repos:{listForUser:async()=>({data:repos}),getContent:async()=>({data:{content:Buffer.from(JSON.stringify({display:'standalone',name:'Public',start_url:'./'})).toString('base64')}})},git:{getTree:async({repo})=>{if(repo==='public-failed')throw Error('SECRET token 123');return {data:{tree:[{type:'blob',path:'manifest.webmanifest'}]}};}}}};
+  await module.exports({github,context:{repo:{owner:'owner',repo:'Menu'}}});
+  assert.equal(output.schema,2);assert.equal(output.apps.length,3);assert.ok(output.repositories.find(r=>r.name==='unpublished'));assert.equal(output.failures[0].reason,'tree-unavailable');assert.doesNotMatch(JSON.stringify(output),/private-project|secret-project|SECRET|123/);
+});
