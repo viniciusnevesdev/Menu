@@ -1,6 +1,6 @@
 {
-  "name": "Menu",
-  "short_name": "Menu",
+  "name": "MenuDePWAs",
+  "short_name": "MenuDePWAs",
   "id": "./",
   "start_url": "./",
   "scope": "./",

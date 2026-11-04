@@ -1,4 +1,4 @@
-# Menu PWA v2
+# MenuDePWAs PWA v2
 
 Catálogo estático em `/Menu/`, sem servidor, banco ou login. Interface em português, busca, aparência clara/escura e suporte a instalação pelo Safari (Compartilhar > Adicionar à Tela de Início). Sem fontes, scripts ou dependências de CDN.
 
@@ -53,3 +53,4 @@ O smoke serve somente os arquivos do app em `/Menu/`, usa viewport móvel e veri
 ## Rollback
 
 Ponto anterior preservado na tag remota `menu-pre-redesign-2026-11-04`. Nenhum histórico foi removido. Um responsável pode restaurar os arquivos revisados dessa tag em um novo commit e publicar pelo fluxo normal, sem reset ou force push. **Não republicar o `sw.js` antigo sem manter a limpeza restrita ao prefixo**: a tag contém o defeito de exclusão de caches. Antes de rollback ou limpeza de dados, exporte o backup local; a versão antiga não entende os dados v2. Esta implementação não faz push nem deploy.
+\n## Identidade e ícones (04/11/2026)\nNome oficial: **MenuDePWAs**. Repositório e URL existentes preservados. Controles usam somente os SVGs originais da biblioteca oficial MMU v0.0.12 em assets/icons/. Um olho riscado oculta; um olho aberto reexibe; a divulgação de detalhes usa chevron SVG. Logos próprios dos PWAs e logotipo já existente do aplicativo permanecem como identidade visual, não como ícones de controles. Os direitos de redistribuição dos SVGs derivados de SF Symbols ainda precisam ser verificados.\n
