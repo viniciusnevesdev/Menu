@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generatedAt": "2026-11-06T06:54:50.115Z",
+  "generatedAt": "2026-11-06T15:02:11.332Z",
   "apps": [
     {
       "name": "NutriTrack β",
@@ -503,6 +503,11 @@
     {
       "name": "Buscar-imagens",
       "url": "https://github.com/viniciusnevesdev/Buscar-imagens",
+      "hasPages": true
+    },
+    {
+      "name": "calculos-modulares",
+      "url": "https://github.com/viniciusnevesdev/calculos-modulares",
       "hasPages": true
     },
     {
