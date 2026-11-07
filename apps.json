@@ -3,57 +3,10 @@
   "generatedAt": "2026-11-07T00:56:16.114Z",
   "apps": [
     {
-      "name": "NutriTrack β",
-      "repo": "Alimentacao",
-      "manifest": "beta/manifest.webmanifest",
-      "url": "https://viniciusnevesdev.github.io/Alimentacao/beta/",
-      "icon": "https://viniciusnevesdev.github.io/Alimentacao/beta/icon-beta-512.png?v=11",
-      "iconCandidates": [
-        "https://viniciusnevesdev.github.io/Alimentacao/beta/icon-beta-512.png?v=11",
-        "https://viniciusnevesdev.github.io/Alimentacao/beta/icon-beta-192.png?v=11"
-      ],
-      "source": "github"
-    },
-    {
-      "name": "Ícones",
-      "repo": "Alimentacao",
-      "manifest": "icon-studio/manifest.webmanifest",
-      "url": "https://viniciusnevesdev.github.io/Alimentacao/icon-studio/",
-      "icon": "https://viniciusnevesdev.github.io/Alimentacao/icon-menu-512.png?v=2",
-      "iconCandidates": [
-        "https://viniciusnevesdev.github.io/Alimentacao/icon-menu-512.png?v=2",
-        "https://viniciusnevesdev.github.io/Alimentacao/icon-menu-192.png?v=2"
-      ],
-      "source": "github"
-    },
-    {
-      "name": "NutriTrack",
-      "repo": "Alimentacao",
-      "manifest": "manifest.webmanifest",
-      "url": "https://viniciusnevesdev.github.io/Alimentacao/",
-      "icon": "https://viniciusnevesdev.github.io/Alimentacao/icon-official-512.png?v=9",
-      "iconCandidates": [
-        "https://viniciusnevesdev.github.io/Alimentacao/icon-official-512.png?v=9",
-        "https://viniciusnevesdev.github.io/Alimentacao/icon-official-192.png?v=9"
-      ],
-      "source": "github"
-    },
-    {
       "name": "Bibliopromptos",
       "repo": "bibliopromptos",
       "url": "https://bibliopromptos.pages.dev/",
       "source": "cloudflare"
-    },
-    {
-      "name": "Imagens",
-      "repo": "Buscar-imagens",
-      "manifest": "manifest.webmanifest",
-      "url": "https://viniciusnevesdev.github.io/Buscar-imagens/",
-      "icon": "https://viniciusnevesdev.github.io/Buscar-imagens/icons/icon.svg",
-      "iconCandidates": [
-        "https://viniciusnevesdev.github.io/Buscar-imagens/icons/icon.svg"
-      ],
-      "source": "github"
     },
     {
       "name": "Comandos",
@@ -368,28 +321,6 @@
       "source": "github"
     },
     {
-      "name": "Painel",
-      "repo": "Painel",
-      "manifest": "manifest.webmanifest",
-      "url": "https://viniciusnevesdev.github.io/Painel/",
-      "icon": "https://viniciusnevesdev.github.io/Painel/icon-512.png",
-      "iconCandidates": [
-        "https://viniciusnevesdev.github.io/Painel/icon-512.png",
-        "https://viniciusnevesdev.github.io/Painel/icon-192.png",
-        "https://viniciusnevesdev.github.io/Painel/icon.svg"
-      ],
-      "source": "github"
-    },
-    {
-      "name": "Dev Agent",
-      "repo": "Pwa-dev-agent",
-      "manifest": "manifest.webmanifest",
-      "url": "https://viniciusnevesdev.github.io/Pwa-dev-agent/",
-      "icon": "",
-      "iconCandidates": [],
-      "source": "github"
-    },
-    {
       "name": "Registro",
       "repo": "Registro-mental-pwa",
       "manifest": "manifest.webmanifest",
@@ -454,30 +385,6 @@
       "source": "github"
     },
     {
-      "name": "Supertexto",
-      "repo": "supertext",
-      "manifest": "manifest.webmanifest",
-      "url": "https://viniciusnevesdev.github.io/supertext/",
-      "icon": "https://viniciusnevesdev.github.io/supertext/icon.svg",
-      "iconCandidates": [
-        "https://viniciusnevesdev.github.io/supertext/icon.svg"
-      ],
-      "source": "github"
-    },
-    {
-      "name": "Tô limpo?",
-      "repo": "To-limpo",
-      "manifest": "manifest.json",
-      "url": "https://viniciusnevesdev.github.io/To-limpo/",
-      "icon": "https://viniciusnevesdev.github.io/To-limpo/icons/icon-512.png",
-      "iconCandidates": [
-        "https://viniciusnevesdev.github.io/To-limpo/icons/icon-512.png",
-        "https://viniciusnevesdev.github.io/To-limpo/icons/maskable-512.png",
-        "https://viniciusnevesdev.github.io/To-limpo/icons/icon-192.png"
-      ],
-      "source": "github"
-    },
-    {
       "name": "Vini UI",
       "repo": "Vini-ui",
       "manifest": "manifest.webmanifest",
@@ -491,18 +398,8 @@
   ],
   "repositories": [
     {
-      "name": "Alimentacao",
-      "url": "https://github.com/viniciusnevesdev/Alimentacao",
-      "hasPages": true
-    },
-    {
       "name": "bibliopromptos",
       "url": "https://github.com/viniciusnevesdev/bibliopromptos",
-      "hasPages": true
-    },
-    {
-      "name": "Buscar-imagens",
-      "url": "https://github.com/viniciusnevesdev/Buscar-imagens",
       "hasPages": true
     },
     {
@@ -536,11 +433,6 @@
       "hasPages": true
     },
     {
-      "name": "cronometro-apresentacao",
-      "url": "https://github.com/viniciusnevesdev/cronometro-apresentacao",
-      "hasPages": false
-    },
-    {
       "name": "cronometro-oficial",
       "url": "https://github.com/viniciusnevesdev/cronometro-oficial",
       "hasPages": true
@@ -566,16 +458,6 @@
       "hasPages": false
     },
     {
-      "name": "Painel",
-      "url": "https://github.com/viniciusnevesdev/Painel",
-      "hasPages": true
-    },
-    {
-      "name": "Pwa-dev-agent",
-      "url": "https://github.com/viniciusnevesdev/Pwa-dev-agent",
-      "hasPages": true
-    },
-    {
       "name": "Registro-mental-pwa",
       "url": "https://github.com/viniciusnevesdev/Registro-mental-pwa",
       "hasPages": true
@@ -593,16 +475,6 @@
     {
       "name": "Simbolos",
       "url": "https://github.com/viniciusnevesdev/Simbolos",
-      "hasPages": true
-    },
-    {
-      "name": "supertext",
-      "url": "https://github.com/viniciusnevesdev/supertext",
-      "hasPages": true
-    },
-    {
-      "name": "To-limpo",
-      "url": "https://github.com/viniciusnevesdev/To-limpo",
       "hasPages": true
     },
     {

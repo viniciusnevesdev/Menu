@@ -35,7 +35,9 @@ test('meaningful mutations persist count, backup resets only explicitly',()=>{
 });
 test('all valid original entries remain; archives fold and hidden groups disappear',()=>{
   const c=L.catalog(JSON.parse(fs.readFileSync('apps.json')));
-  assert.ok(c.apps.filter(a=>a.source!=='cloudflare').length >= 40);
+  assert.ok(c.apps.some(a=>a.repo==='cronometro-oficial'));
+  assert.ok(!c.apps.some(a=>['Alimentacao','Painel','supertext','To-limpo','Pwa-dev-agent','cronometro-apresentacao','Buscar-imagens'].includes(a.repo)));
+  assert.match(fs.readFileSync('scripts/build-catalog.cjs','utf8'), /!r\.archived/);
   assert.ok(!c.apps.some(a=>a.url.includes('/Controle-financeiro/source/public/')));
   const apps=c.apps.filter(a=>a.repo==='cronometro-oficial'); const g=L.groups(apps,[])[0];
   assert.equal(apps.length,14); assert.equal(g.primary.length,1);assert.equal(g.variants.length,13);

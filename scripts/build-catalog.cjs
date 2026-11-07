@@ -6,7 +6,7 @@ module.exports = async function build({github, context}) {
   const repos = [];
   for (let page = 1; ; page++) {
     const {data} = await github.rest.repos.listForUser({username: owner, type: 'owner', per_page: 100, page});
-    repos.push(...data.filter(r => !r.private && r.visibility !== 'private' && r.name !== context.repo.repo));
+    repos.push(...data.filter(r => !r.private && r.visibility !== 'private' && !r.archived && r.name !== context.repo.repo && r.name !== 'Buscar-imagens'));
     if (data.length < 100) break;
   }
   const apps = [], failures = [], repositories = repos.map(r => ({name: r.name, url: `https://github.com/${owner}/${encodeURIComponent(r.name)}`, hasPages: !!r.has_pages}));
