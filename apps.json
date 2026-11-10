@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generatedAt": "2026-11-10T17:49:53.215Z",
+  "generatedAt": "2026-11-10T23:19:23.373Z",
   "apps": [
     {
       "name": "Bibliopromptos",
@@ -480,6 +480,11 @@
     {
       "name": "Vini-ui",
       "url": "https://github.com/viniciusnevesdev/Vini-ui",
+      "hasPages": true
+    },
+    {
+      "name": "viniciusnevesdev.github.io",
+      "url": "https://github.com/viniciusnevesdev/viniciusnevesdev.github.io",
       "hasPages": true
     }
   ],
