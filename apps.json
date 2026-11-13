@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generatedAt": "2026-11-13T16:22:05.990Z",
+  "generatedAt": "2026-11-13T22:37:22.680Z",
   "apps": [
     {
       "name": "Bibliopromptos",
@@ -285,14 +285,14 @@
       "source": "github"
     },
     {
-      "name": "Diário Negro",
-      "repo": "diarionegro",
+      "name": "Copiloto",
+      "repo": "ecossistema-copiloto",
       "manifest": "manifest.webmanifest",
-      "url": "https://viniciusnevesdev.github.io/diarionegro/",
-      "icon": "https://viniciusnevesdev.github.io/diarionegro/icons/icon-512.png",
+      "url": "https://viniciusnevesdev.github.io/ecossistema-copiloto/",
+      "icon": "https://viniciusnevesdev.github.io/ecossistema-copiloto/icons/icon-512.png",
       "iconCandidates": [
-        "https://viniciusnevesdev.github.io/diarionegro/icons/icon-512.png",
-        "https://viniciusnevesdev.github.io/diarionegro/icons/icon-192.png"
+        "https://viniciusnevesdev.github.io/ecossistema-copiloto/icons/icon-512.png",
+        "https://viniciusnevesdev.github.io/ecossistema-copiloto/icons/icon-192.png"
       ],
       "source": "github"
     },
@@ -438,8 +438,8 @@
       "hasPages": true
     },
     {
-      "name": "diarionegro",
-      "url": "https://github.com/viniciusnevesdev/diarionegro",
+      "name": "ecossistema-copiloto",
+      "url": "https://github.com/viniciusnevesdev/ecossistema-copiloto",
       "hasPages": true
     },
     {
