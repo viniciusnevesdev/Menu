@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generatedAt": "2026-11-13T22:37:22.680Z",
+  "generatedAt": "2026-11-14T03:13:36.199Z",
   "apps": [
     {
       "name": "Bibliopromptos",
@@ -321,33 +321,24 @@
       "source": "github"
     },
     {
-      "name": "Registro",
-      "repo": "Registro-mental-pwa",
-      "manifest": "manifest.webmanifest",
-      "url": "https://viniciusnevesdev.github.io/Registro-mental-pwa/",
-      "icon": "",
-      "iconCandidates": [],
-      "source": "github"
-    },
-    {
       "name": "Registro Beta",
-      "repo": "Registro-mental-v1",
+      "repo": "Registro-mental",
       "manifest": "beta/manifest.webmanifest",
-      "url": "https://viniciusnevesdev.github.io/Registro-mental-v1/beta/atualizar.html?v=1.2.0-beta.51",
-      "icon": "https://viniciusnevesdev.github.io/Registro-mental-v1/beta/icon-beta.jpeg?v=20260915-2",
+      "url": "https://viniciusnevesdev.github.io/Registro-mental/beta/",
+      "icon": "https://viniciusnevesdev.github.io/Registro-mental/beta/icon-beta.jpeg?v=20260915-2",
       "iconCandidates": [
-        "https://viniciusnevesdev.github.io/Registro-mental-v1/beta/icon-beta.jpeg?v=20260915-2"
+        "https://viniciusnevesdev.github.io/Registro-mental/beta/icon-beta.jpeg?v=20260915-2"
       ],
       "source": "github"
     },
     {
       "name": "Registro",
-      "repo": "Registro-mental-v1",
+      "repo": "Registro-mental",
       "manifest": "manifest.webmanifest",
-      "url": "https://viniciusnevesdev.github.io/Registro-mental-v1/launch.html?v=1.2.6",
-      "icon": "https://viniciusnevesdev.github.io/Registro-mental-v1/icon-oficial.jpeg?v=20260915-2",
+      "url": "https://viniciusnevesdev.github.io/Registro-mental/launch.html?v=1.2.6",
+      "icon": "https://viniciusnevesdev.github.io/Registro-mental/icon-oficial.jpeg?v=20260915-2",
       "iconCandidates": [
-        "https://viniciusnevesdev.github.io/Registro-mental-v1/icon-oficial.jpeg?v=20260915-2"
+        "https://viniciusnevesdev.github.io/Registro-mental/icon-oficial.jpeg?v=20260915-2"
       ],
       "source": "github"
     },
@@ -458,13 +449,8 @@
       "hasPages": false
     },
     {
-      "name": "Registro-mental-pwa",
-      "url": "https://github.com/viniciusnevesdev/Registro-mental-pwa",
-      "hasPages": true
-    },
-    {
-      "name": "Registro-mental-v1",
-      "url": "https://github.com/viniciusnevesdev/Registro-mental-v1",
+      "name": "Registro-mental",
+      "url": "https://github.com/viniciusnevesdev/Registro-mental",
       "hasPages": true
     },
     {
