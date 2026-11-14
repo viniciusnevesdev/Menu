@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generatedAt": "2026-11-14T17:06:28.573Z",
+  "generatedAt": "2026-11-14T21:28:48.341Z",
   "apps": [
     {
       "name": "Bibliopromptos",
@@ -9,14 +9,14 @@
       "source": "cloudflare"
     },
     {
-      "name": "Comandos",
-      "repo": "comandos",
+      "name": "Central SSH",
+      "repo": "central-ssh",
       "manifest": "manifest.webmanifest",
-      "url": "https://viniciusnevesdev.github.io/comandos/",
-      "icon": "https://viniciusnevesdev.github.io/comandos/icons/icon-512.png",
+      "url": "https://viniciusnevesdev.github.io/central-ssh/",
+      "icon": "https://viniciusnevesdev.github.io/central-ssh/icons/icon-512.png",
       "iconCandidates": [
-        "https://viniciusnevesdev.github.io/comandos/icons/icon-512.png",
-        "https://viniciusnevesdev.github.io/comandos/icons/icon-192.png"
+        "https://viniciusnevesdev.github.io/central-ssh/icons/icon-512.png",
+        "https://viniciusnevesdev.github.io/central-ssh/icons/icon-192.png"
       ],
       "source": "github"
     },
@@ -399,8 +399,8 @@
       "hasPages": true
     },
     {
-      "name": "comandos",
-      "url": "https://github.com/viniciusnevesdev/comandos",
+      "name": "central-ssh",
+      "url": "https://github.com/viniciusnevesdev/central-ssh",
       "hasPages": true
     },
     {
