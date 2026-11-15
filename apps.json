@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generatedAt": "2026-11-15T09:24:22.479Z",
+  "generatedAt": "2026-11-15T17:09:15.493Z",
   "apps": [
     {
       "name": "Bibliopromptos",
@@ -321,6 +321,18 @@
       "source": "github"
     },
     {
+      "name": "Projoteca",
+      "repo": "projoteca-visualizador",
+      "manifest": "manifest.webmanifest",
+      "url": "https://viniciusnevesdev.github.io/projoteca-visualizador/",
+      "icon": "https://viniciusnevesdev.github.io/projoteca-visualizador/assets/icon-512.png",
+      "iconCandidates": [
+        "https://viniciusnevesdev.github.io/projoteca-visualizador/assets/icon-512.png",
+        "https://viniciusnevesdev.github.io/projoteca-visualizador/assets/icon-192.png"
+      ],
+      "source": "github"
+    },
+    {
       "name": "Registro Beta",
       "repo": "Registro-mental",
       "manifest": "beta/manifest.webmanifest",
@@ -447,6 +459,11 @@
       "name": "Monitor-social",
       "url": "https://github.com/viniciusnevesdev/Monitor-social",
       "hasPages": false
+    },
+    {
+      "name": "projoteca-visualizador",
+      "url": "https://github.com/viniciusnevesdev/projoteca-visualizador",
+      "hasPages": true
     },
     {
       "name": "Registro-mental",
