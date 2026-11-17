@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generatedAt": "2026-11-16T20:28:11.775Z",
+  "generatedAt": "2026-11-17T03:52:19.947Z",
   "apps": [
     {
       "name": "Bibliopromptos",
@@ -474,6 +474,11 @@
       "name": "seletor-fotos-unhas",
       "url": "https://github.com/viniciusnevesdev/seletor-fotos-unhas",
       "hasPages": true
+    },
+    {
+      "name": "sfsymbols-svg",
+      "url": "https://github.com/viniciusnevesdev/sfsymbols-svg",
+      "hasPages": false
     },
     {
       "name": "Simbolos",
